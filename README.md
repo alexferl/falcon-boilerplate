@@ -1,5 +1,7 @@
 # falcon-boilerplate
 
+https://travis-ci.org/admiralobvious/falcon-boilerplate.svg?branch=master
+
 A simple boilerplate for the [Falcon](https://github.com/falconry/falcon) framework. Uses [gunicorn](https://github.com/benoitc/gunicorn) as the WSGI HTTP server and [meinheld](https://github.com/mopemope/meinheld) as the gunicorn worker. 
 
 ## Using
