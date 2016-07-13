@@ -1,6 +1,6 @@
-import json
-
 import falcon
+
+import app.util.serialization as json
 
 
 class Crossdomain(object):

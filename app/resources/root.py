@@ -1,4 +1,4 @@
-import json
+import app.util.serialization as json
 
 
 class RootResources(object):
