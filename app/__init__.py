@@ -16,6 +16,13 @@ def create_app(env, **kwargs):
     else:
         configs = DevConfig
 
+    log_level = kwargs.get('log_level', configs.LOG_LEVEL)
+    if log_level:
+        setup_logging(configs.LOG_LEVEL)
+        logger = logging.getLogger(configs.APP_NAME)
+        logger.info('Starting {} in {} mode'.format(configs.APP_NAME,
+                                                    configs.ENV))
+
     app = falcon.API(
         middleware=[
             Crossdomain(),
@@ -23,11 +30,7 @@ def create_app(env, **kwargs):
         ]
     )
 
-    setup_logging(configs.LOG_LEVEL)
-    logger = logging.getLogger(configs.APP_NAME)
     setup_routes(app)
-
-    logger.info('Starting app in {} mode'.format(configs.ENV))
 
     return app
 
@@ -35,5 +38,3 @@ def create_app(env, **kwargs):
 def setup_routes(app):
     app.add_route('/', RootResources())
     app.add_route('/{name}', RootNameResources())
-
-    return app

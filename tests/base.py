@@ -9,7 +9,7 @@ from app import create_app
 
 class TestBase(unittest.TestCase):
     def setUp(self):
-        self.app = create_app('DEV')
+        self.app = create_app('DEV', log_level=None)  # Disable logs
         self.srmock = falcon.testing.StartResponseMock()
 
     def simulate_request(self, path, *args, **kwargs):
