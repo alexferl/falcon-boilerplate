@@ -3,9 +3,9 @@ import logging
 import falcon
 
 from app.config import DevConfig, ProdConfig, configs
-from app.logs import setup_logging
 from app.middleware import Crossdomain, JSONTranslator
 from app.resources.root import RootResources, RootNameResources
+from app.util.logs import setup_logging
 
 
 def create_app(env, **kwargs):
