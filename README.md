@@ -5,8 +5,8 @@ A Python 3 boilerplate for the [Falcon](https://github.com/falconry/falcon) fram
 ## Using
 
 ```
-$ git clone https://github.com/admiralobvious/falcon-boilerplate.git your_app
-$ cd your_app
+$ git clone https://github.com/admiralobvious/falcon-boilerplate.git myapp
+$ cd myapp
 $ virtualenv -p python3 venv
 $ source venv/bin/activate
 $ pip install -r dev_requirements.txt
