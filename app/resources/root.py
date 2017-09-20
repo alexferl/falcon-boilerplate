@@ -11,5 +11,5 @@ class RootResources(object):
 class RootNameResources(object):
     def on_post(self, req, resp, name):
         resp.body = json.dumps({
-            "message": f"Hello, {name.capitalize()}!"
+            "message": "Hello, {}!".format(name.capitalize())
         })

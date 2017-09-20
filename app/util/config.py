@@ -33,7 +33,7 @@ def setup_vyper(parser, overrides):
     actual_overrides = \
         {k: val for k, val in overrides.items() if defaults[k] != val}
     env_name = os.getenv("APP_ENV_NAME", "LOCAL").lower()
-    config_name = f"config.{env_name}"
+    config_name = "config.{}".format(env_name)
 
     _setup_args(parser)
     _setup_overrides(actual_overrides)

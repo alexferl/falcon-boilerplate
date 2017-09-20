@@ -35,7 +35,7 @@ def create_app():
 
 
 def start():
-    logger.info(f"Environment: {settings.get('ENV_NAME')}")
+    logger.info("Environment: {}".format(settings.get("ENV_NAME")))
 
 
 def _setup_routes(app):

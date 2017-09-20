@@ -8,17 +8,17 @@ logger = logging.getLogger(__name__)
 
 class HTTPError(falcon.HTTPError):
     def __init__(self, status, description, **kwargs):
-        http_status = f"HTTP_{status}"
+        http_status = "HTTP_{}".format(status)
         if hasattr(status_codes, http_status):
             title = getattr(status_codes, http_status)
         else:
-            raise ValueError(f"Status code '{http_status}' does not exist!")
+            raise ValueError("Status code '{}' does not exist!".format(http_status))
         super(HTTPError, self).__init__(title, title, str(description), **kwargs)
 
 
 def error_handler(ex, req, resp, params):
     if not isinstance(ex, falcon.HTTPError):
-        logger.exception(f"Unhandled error while processing request: {ex}")
+        logger.exception("Unhandled error while processing request: {}".format(ex))
         raise HTTPError(500, str(ex))
     else:
         raise ex
