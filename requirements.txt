@@ -3,3 +3,4 @@ gunicorn>=19.7.1
 meinheld>=0.6.1
 setproctitle>=1.1.10
 ujson>=1.35
+vyper==0.1.0
