@@ -56,7 +56,7 @@ if __name__ == '__main__':
         "max_requests": settings.get("MAX_REQUESTS"),
         "max_requests_jitter": settings.get("MAX_REQUESTS_JITTER"),
         "worker_class": settings.get("WORKER_CLASS"),
-        "workers": settings.get("WORKERS") or (1 if settings.get("ENV_NAME") == settings.get("LOCAL") else
+        "workers": settings.get("WORKERS") or (1 if settings.get("ENV_NAME") == "LOCAL" else
                                         (multiprocessing.cpu_count() * 2) + 1)
     }
 
