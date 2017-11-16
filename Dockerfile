@@ -1,5 +1,4 @@
 FROM python:3
-
 MAINTAINER Alexandre Ferland <aferlandqc@gmail.com>
 
 RUN mkdir -p /usr/src/app
