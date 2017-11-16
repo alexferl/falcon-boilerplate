@@ -45,6 +45,8 @@ def _config_logging():
 
 if __name__ == '__main__':
     app = init_app()
+    env_name = settings.get("ENV_NAME")
+    default_workers = (multiprocessing.cpu_count() * 2) + 1
     opts = {
         "accesslog": settings.get("ACCESS_LOG"),
         "access_log_format": settings.get("ACCESS_LOG_FORMAT"),
@@ -56,8 +58,8 @@ if __name__ == '__main__':
         "max_requests": settings.get("MAX_REQUESTS"),
         "max_requests_jitter": settings.get("MAX_REQUESTS_JITTER"),
         "worker_class": settings.get("WORKER_CLASS"),
-        "workers": settings.get("WORKERS") or (1 if settings.get("ENV_NAME") == "LOCAL" else
-                                        (multiprocessing.cpu_count() * 2) + 1)
+        "workers": settings.get("WORKERS") or (1 if env_name == "LOCAL"
+                                               else default_workers)
     }
 
     Application(app, opts).run()
