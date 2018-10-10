@@ -1,6 +1,7 @@
-falcon>=1.3.0
-gunicorn>=19.7.1
-meinheld>=0.6.1
-setproctitle>=1.1.10
-ujson>=1.35
-vyper==0.1.0
+falcon==1.4.1
+gunicorn==19.9.0
+meinheld==0.6.1
+setproctitle==1.1.10
+ujson==1.35
+vyper-config==0.2.3
+
