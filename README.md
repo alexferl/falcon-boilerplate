@@ -16,5 +16,5 @@ $ python run.py
 To run the tests:
 
 ```
-$ nose2 tests
+$ pytest tests
 ```

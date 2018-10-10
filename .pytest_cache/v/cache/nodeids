@@ -1,0 +1,6 @@
+[
+  "tests/test_root.py::TestRoot::test_get_returns_200_and_message",
+  "tests/test_root.py::TestRoot::test_wrong_method_returns_405",
+  "tests/test_root.py::TestRootName::test_post_returns_200_and_name",
+  "tests/test_root.py::TestRootName::test_wrong_method_returns_405"
+]
