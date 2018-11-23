@@ -7,8 +7,6 @@ from gunicorn.six import iteritems
 from app import configure, create_app, start
 from app.config import parser, settings
 
-gunicorn.SERVER_SOFTWARE = 'gunicorn'  # hide gunicorn version
-
 
 class Application(gunicorn.app.base.BaseApplication):
     def __init__(self, app, options=None):
@@ -27,8 +25,7 @@ class Application(gunicorn.app.base.BaseApplication):
 
 
 def init_app():
-    args = vars(parser.parse_args())
-    configure(**args)
+    configure(parser)
     return create_app()
 
 

@@ -37,7 +37,7 @@ def setup_logging():
         },
         "loggers": {
             "": {
-                "handlers": ["console"],
+                "handlers": settings.get("LOG_HANDLERS").split(','),
                 "level": settings.get("LOG_LEVEL")
             }
         }

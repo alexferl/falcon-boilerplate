@@ -12,9 +12,9 @@ from app.util.logging import setup_logging
 logger = logging.getLogger(__name__)
 
 
-def configure(**overrides):
+def configure(args):
     logging.getLogger("vyper").setLevel(logging.WARNING)
-    setup_vyper(parser, overrides)
+    setup_vyper(args)
 
 
 def create_app():
@@ -35,6 +35,7 @@ def create_app():
 
 
 def start():
+    logger.info("Starting {}".format(settings.get("APP_NAME")))
     logger.info("Environment: {}".format(settings.get("ENV_NAME")))
 
 
