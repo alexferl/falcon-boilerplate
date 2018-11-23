@@ -4,7 +4,7 @@ import falcon
 
 from app.config import parser, settings
 from app.middleware import CrossDomain, JSONTranslator
-from app.resources.root import RootResources, RootNameResources
+from app.resources import setup_routes
 from app.util.config import setup_vyper
 from app.util.error import error_handler
 from app.util.logging import setup_logging
@@ -12,24 +12,23 @@ from app.util.logging import setup_logging
 logger = logging.getLogger(__name__)
 
 
-def configure(args):
+def configure(args=None):
     logging.getLogger("vyper").setLevel(logging.WARNING)
     setup_vyper(args)
+    setup_logging()
 
 
 def create_app():
-    setup_logging()
-
     app = falcon.API(
         middleware=[
             CrossDomain(),
             JSONTranslator()
-        ],
+        ]
     )
 
     app.add_error_handler(Exception, error_handler)
 
-    _setup_routes(app)
+    setup_routes(app)
 
     return app
 
@@ -37,8 +36,3 @@ def create_app():
 def start():
     logger.info("Starting {}".format(settings.get("APP_NAME")))
     logger.info("Environment: {}".format(settings.get("ENV_NAME")))
-
-
-def _setup_routes(app):
-    app.add_route("/", RootResources())
-    app.add_route("/{name}", RootNameResources())
