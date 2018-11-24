@@ -12,9 +12,9 @@ from app.util.logging import setup_logging
 logger = logging.getLogger(__name__)
 
 
-def configure(args=None):
+def configure():
     logging.getLogger("vyper").setLevel(logging.WARNING)
-    setup_vyper(args)
+    setup_vyper(parser)
     setup_logging()
 
 

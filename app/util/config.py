@@ -6,8 +6,6 @@ settings = v
 
 
 def setup_vyper(parser):
-    v.bind_args(parser)
-
     env_name = os.getenv("APP_ENV_NAME", "LOCAL").lower()
     config_name = "config.{}".format(env_name)
 
@@ -19,3 +17,5 @@ def setup_vyper(parser):
     v.set_config_type("toml")
     v.set_config_name(config_name)
     v.read_in_config()
+
+    v.bind_args(parser)

@@ -5,7 +5,7 @@ import gunicorn.app.base
 from gunicorn.six import iteritems
 
 from app import configure, create_app, start
-from app.config import parser, settings
+from app.config import settings
 
 
 class Application(gunicorn.app.base.BaseApplication):
@@ -25,7 +25,7 @@ class Application(gunicorn.app.base.BaseApplication):
 
 
 def init_app():
-    configure(parser)
+    configure()
     return create_app()
 
 
