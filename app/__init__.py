@@ -1,6 +1,9 @@
 import logging
+from functools import partial
 
 import falcon
+import rapidjson
+from falcon import media
 
 from app.config import parser, settings
 from app.middleware import CrossDomain, JSONTranslator
@@ -26,6 +29,19 @@ def create_app():
         ]
     )
 
+    json_handler = media.JSONHandler(
+        dumps=partial(
+            rapidjson.dumps,
+            ensure_ascii=False, sort_keys=True
+        ),
+        loads=rapidjson.loads
+    )
+    extra_handlers = {
+        'application/json': json_handler,
+    }
+
+    app.req_options.media_handlers.update(extra_handlers)
+    app.resp_options.media_handlers.update(extra_handlers)
     app.add_error_handler(Exception, error_handler)
 
     setup_routes(app)

@@ -1,5 +1,5 @@
 try:
-    import ujson as json
+    import rapidjson as json
 except ImportError:
     import json
 
