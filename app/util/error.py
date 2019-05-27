@@ -16,7 +16,7 @@ class HTTPError(falcon.HTTPError):
         super(HTTPError, self).__init__(title, title, str(description), **kwargs)
 
 
-def error_handler(ex, req, resp, params):
+def error_handler(req, resp, ex, params):
     if not isinstance(ex, falcon.HTTPError):
         logger.exception("Unhandled error while processing request: {}".format(ex))
         raise HTTPError(500, str(ex))

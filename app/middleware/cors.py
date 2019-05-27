@@ -1,8 +1,8 @@
 from app.config import settings
 
 
-class CrossDomain(object):
-    def process_response(self, req, resp, resource):
+class CrossDomain:
+    def process_response(self, req, resp, resource, req_succeeded):
         resp.set_header("Access-Control-Allow-Origin",
                         settings.get("ACCESS_CONTROL_ALLOW_ORIGIN"))
         resp.set_header("Access-Control-Allow-Methods",
