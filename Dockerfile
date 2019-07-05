@@ -1,14 +1,25 @@
-FROM python:3.7
+ARG PYTHON_VERSION=3.7
+FROM python:${PYTHON_VERSION} as builder
 MAINTAINER Alexandre Ferland <aferlandqc@gmail.com>
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+WORKDIR /build
+COPY requirements.txt /build/
+RUN pip wheel -r requirements.txt
 
-COPY requirements.txt /usr/src/app/
-RUN pip install --no-cache-dir -r requirements.txt
+FROM python:${PYTHON_VERSION}
+RUN groupadd -g 999 appuser && \
+    useradd -r -d /app -u 999 -g appuser appuser
+COPY --from=builder /build /build
+RUN pip install -r /build/requirements.txt \
+                -f /build \
+                && rm -rf /build \
+                && rm -rf /root/.cache/pip
+WORKDIR /app
+COPY . /app/
 
-COPY . /usr/src/app
+USER appuser
 
 EXPOSE 5000
 
-CMD ["python", "run.py"]
+ENTRYPOINT ["python", "run.py"]
+
