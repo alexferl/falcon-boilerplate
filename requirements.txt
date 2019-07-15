@@ -3,4 +3,4 @@ gunicorn==19.9.0
 meinheld==1.0.1
 python-rapidjson==0.7.1
 setproctitle==1.1.10
-vyper-config==0.3.3
+vyper-config==0.4.0
