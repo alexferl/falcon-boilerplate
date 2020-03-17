@@ -14,8 +14,13 @@ class Application(gunicorn.app.base.BaseApplication):
         super(Application, self).__init__()
 
     def load_config(self):
-        config = dict([(key, value) for key, value in self.options.items()
-                       if key in self.cfg.settings and value is not None])
+        config = dict(
+            [
+                (key, value)
+                for key, value in self.options.items()
+                if key in self.cfg.settings and value is not None
+            ]
+        )
         for key, value in config.items():
             self.cfg.set(key.lower(), value)
 
@@ -34,12 +39,12 @@ def _post_fork(server=None, w=None):
 
 
 def _config_logging():
-    for logger in 'gunicorn.access', 'gunicorn.error':
+    for logger in "gunicorn.access", "gunicorn.error":
         logging.getLogger(logger).propagate = True
         logging.getLogger(logger).handlers = []
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = init_app()
     env_name = settings.get("ENV_NAME")
     default_workers = (multiprocessing.cpu_count() * 2) + 1
@@ -54,8 +59,8 @@ if __name__ == '__main__':
         "max_requests": settings.get("MAX_REQUESTS"),
         "max_requests_jitter": settings.get("MAX_REQUESTS_JITTER"),
         "worker_class": settings.get("WORKER_CLASS"),
-        "workers": settings.get("WORKERS") or (1 if env_name == "LOCAL"
-                                               else default_workers)
+        "workers": settings.get("WORKERS")
+        or (1 if env_name == "LOCAL" else default_workers),
     }
 
     Application(app, opts).run()

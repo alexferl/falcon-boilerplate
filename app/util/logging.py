@@ -17,15 +17,11 @@ def setup_logging():
     config = {
         "version": 1,
         "disable_existing_loggers": False,
-        "filters": {
-            "gunicorn_filter": {
-                "()": GunicornFilter
-            }
-        },
+        "filters": {"gunicorn_filter": {"()": GunicornFilter}},
         "formatters": {
             "standard": {
                 "format": settings.get("LOG_FORMAT"),
-                "datefmt": settings.get("LOG_DATE_FORMAT")
+                "datefmt": settings.get("LOG_DATE_FORMAT"),
             }
         },
         "handlers": {
@@ -37,10 +33,10 @@ def setup_logging():
         },
         "loggers": {
             "": {
-                "handlers": settings.get("LOG_HANDLERS").split(','),
-                "level": settings.get("LOG_LEVEL")
+                "handlers": settings.get("LOG_HANDLERS").split(","),
+                "level": settings.get("LOG_LEVEL"),
             }
-        }
+        },
     }
 
     logging.config.dictConfig(config)

@@ -7,6 +7,4 @@ class RootResources:
 
 class RootNameResources:
     def on_post(self, req, resp, name):
-        resp.media = {
-            "message": "Hello, {}!".format(name.capitalize())
-        }
+        resp.media = {"message": "Hello, {}!".format(name.capitalize())}

@@ -22,22 +22,14 @@ def configure():
 
 
 def create_app():
-    app = falcon.API(
-        middleware=[
-            CrossDomain(),
-            JSONTranslator()
-        ]
-    )
+    app = falcon.API(middleware=[CrossDomain(), JSONTranslator()])
 
     json_handler = media.JSONHandler(
-        dumps=partial(
-            rapidjson.dumps,
-            ensure_ascii=False, sort_keys=True
-        ),
-        loads=rapidjson.loads
+        dumps=partial(rapidjson.dumps, ensure_ascii=False, sort_keys=True),
+        loads=rapidjson.loads,
     )
     extra_handlers = {
-        'application/json': json_handler,
+        "application/json": json_handler,
     }
 
     app.req_options.media_handlers.update(extra_handlers)

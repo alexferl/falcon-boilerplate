@@ -9,17 +9,21 @@ class JSONTranslator:
 
         body = req.stream.read()
         if not body:
-            raise HTTPError(400, "Empty request body. A valid JSON document is required.")
+            raise HTTPError(
+                400, "Empty request body. A valid JSON document is required."
+            )
 
         try:
             req.context.doc = json.loads(body.decode("utf-8"))
 
         except (ValueError, UnicodeDecodeError):
-            raise HTTPError(400,
-                            "Malformed JSON. "
-                            "Could not decode the request body. The "
-                            "JSON was incorrect or not encoded as "
-                            "UTF-8.")
+            raise HTTPError(
+                400,
+                "Malformed JSON. "
+                "Could not decode the request body. The "
+                "JSON was incorrect or not encoded as "
+                "UTF-8.",
+            )
 
     def process_response(self, req, resp, resource, req_succeeded):
         if not hasattr(resp.context, "result"):
