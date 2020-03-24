@@ -7,14 +7,13 @@ A Python 3 boilerplate for the [Falcon](https://github.com/falconry/falcon) fram
 ```
 $ git clone https://github.com/admiralobvious/falcon-boilerplate.git myapp
 $ cd myapp
-$ virtualenv -p python3 venv
+$ make build
 $ source venv/bin/activate
-$ pip install -r dev_requirements.txt
 $ python run.py
 ```
 
 To run the tests:
 
 ```
-$ pytest tests
+$ make test
 ```
