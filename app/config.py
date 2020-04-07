@@ -99,7 +99,7 @@ m.add_argument(
 m.add_argument(
     "--access-control-allow-methods",
     type=str,
-    default="GET, PUT, POST, DELETE",
+    default="GET, PUT, POST, DELETE, HEAD, PATCH",
     help="(default %(default)s)",
 )
 m.add_argument(
