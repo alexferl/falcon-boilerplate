@@ -1,3 +1,5 @@
+import falcon
+
 import app.util.json as json
 from app.util.error import HTTPError
 
@@ -10,7 +12,8 @@ class JSONTranslator:
         body = req.stream.read()
         if not body:
             raise HTTPError(
-                400, "Empty request body. A valid JSON document is required."
+                falcon.HTTP_BAD_REQUEST,
+                "Empty request body. A valid JSON document is required.",
             )
 
         try:
@@ -18,7 +21,7 @@ class JSONTranslator:
 
         except (ValueError, UnicodeDecodeError):
             raise HTTPError(
-                400,
+                falcon.HTTP_BAD_REQUEST,
                 "Malformed JSON. "
                 "Could not decode the request body. The "
                 "JSON was incorrect or not encoded as "

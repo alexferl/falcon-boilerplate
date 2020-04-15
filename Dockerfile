@@ -1,4 +1,4 @@
-ARG PYTHON_VERSION=3.7
+ARG PYTHON_VERSION=3.8.2
 FROM python:${PYTHON_VERSION} as builder
 MAINTAINER Alexandre Ferland <aferlandqc@gmail.com>
 
@@ -22,4 +22,3 @@ USER appuser
 EXPOSE 5000
 
 ENTRYPOINT ["python", "run.py"]
-
