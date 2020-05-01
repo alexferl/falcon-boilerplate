@@ -4,13 +4,19 @@ import falcon
 import falcon.testing
 
 import app.util.json as json
-from app import create_app
+from app import configure, create_app, settings
+
+settings.parse_argv_disabled = True  # don't parse pytest's args
 
 
 class TestBase(unittest.TestCase):
-    def setUp(self):
+    def setUp(self, **overrides):
+        configure(**overrides)
         self.app = create_app()
         self.srmock = falcon.testing.StartResponseMock()
+
+    def override_settings(self, **overrides):
+        self.setUp(**overrides)
 
     def simulate_request(self, path, *args, **kwargs):
         env = falcon.testing.create_environ(path, *args, **kwargs)
@@ -41,4 +47,8 @@ class TestBase(unittest.TestCase):
 
     def simulate_head(self, *args, **kwargs):
         kwargs["method"] = "HEAD"
+        return self.simulate_request(*args, **kwargs)
+
+    def simulate_options(self, *args, **kwargs):
+        kwargs["method"] = "OPTIONS"
         return self.simulate_request(*args, **kwargs)

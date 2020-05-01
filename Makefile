@@ -1,4 +1,4 @@
-.PHONY: help build clean update test fmt
+.PHONY: help build clean update test lint
 
 VENV_NAME?=venv
 VENV_ACTIVATE=. $(VENV_NAME)/bin/activate
@@ -37,6 +37,6 @@ update:
 test: venv
 	${PYTHON} -m pytest
 
-fmt: venv
+lint: venv
 	$(VENV_NAME)/bin/black -t py37 --exclude $(VENV_NAME) .
 

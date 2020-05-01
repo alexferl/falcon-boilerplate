@@ -5,11 +5,15 @@ from vyper import v
 settings = v
 
 
-def setup_vyper(parser):
+def setup_vyper(parser, overrides=None):
     env_name = os.getenv("APP_ENV_NAME", "LOCAL").lower()
     config_name = "config.{}".format(env_name)
 
     v.bind_args(parser)
+
+    if overrides:
+        for k, val in overrides.items():
+            v.set(k, val)
 
     v.set_env_prefix(v.get("environment_variables_prefix"))
     v.set_env_key_replacer("-", "_")

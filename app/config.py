@@ -94,25 +94,46 @@ gu.add_argument(
 # Middleware
 m = parser.add_argument_group("Middleware")
 m.add_argument(
-    "--access-control-allow-origin", type=str, default="*", help="(default %(default)s)"
+    "--cors-enabled",
+    default=False,
+    action="store_true",
+    help="Enable cross-origin resource sharing (default %(default)s)",
 )
 m.add_argument(
-    "--access-control-allow-methods",
+    "--cors-allow-origins",
     type=str,
-    default="GET, PUT, POST, DELETE, HEAD, PATCH",
-    help="(default %(default)s)",
+    default="*",
+    help="List of origins that may access the resource. (default %(default)s)",
 )
 m.add_argument(
-    "--access-control-allow-credentials",
+    "--cors-allow-methods",
     type=str,
-    default="true",
-    help="(default %(default)s)",
+    default="GET, HEAD, PUT, PATCH, POST, DELETE",
+    help="List methods allowed when accessing the resource. This is used in response to a preflight request. (default %(default)s)",
 )
 m.add_argument(
-    "--access-control-allow-headers",
+    "--cors-allow-headers",
     type=str,
-    default="Origin, Authorization, Content-Type, X-Requested-With",
-    help="(default %(default)s)",
+    default="",
+    help="List of request headers that can be used when making the actual request. This is in response to a preflight request. (default %(default)s)",
+)
+m.add_argument(
+    "--cors-allow-credentials",
+    default=False,
+    action="store_true",
+    help="Indicates whether or not the response to the request can be exposed. (default %(default)s)",
+)
+m.add_argument(
+    "--cors-expose-headers",
+    type=str,
+    default="",
+    help="Defines a whitelist headers that clients are allowed to access. (default %(default)s)",
+)
+m.add_argument(
+    "--cors-max-age",
+    type=int,
+    default=0,
+    help="Indicates how long (in seconds) the results of a preflight request can be cached. (default %(default)s)",
 )
 
 # Logs
