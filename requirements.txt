@@ -1,5 +1,5 @@
 falcon==2.0.0
-falcon-crossorigin==0.1.0
+falcon-crossorigin==0.1.2
 gunicorn==20.0.4
 meinheld==1.0.1
 python-rapidjson==0.9.1
