@@ -55,6 +55,6 @@ def _validate(req_schema: dict = None, resp_schema: dict = None):
 
 
 if fastjsonschema is None:
-    validate = falcon_validate
+    validate = falcon_validate  # pragma: no cover
 else:
     validate = _validate
