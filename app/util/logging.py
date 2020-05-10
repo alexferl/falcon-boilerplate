@@ -5,7 +5,7 @@ from app.config import settings
 
 
 class GunicornFilter(logging.Filter):
-    def filter(self, record):
+    def filter(self, record: logging.LogRecord) -> bool:  # pragma: no cover
         # workaround to remove the duplicate access log
         if '"- - HTTP/1.0" 0 0' in record.msg:
             return False

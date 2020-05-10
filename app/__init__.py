@@ -1,13 +1,16 @@
 import logging
 from functools import partial
+from typing import Any, Dict
 
 import falcon
 import rapidjson
-from falcon import media
-from falcon_crossorigin import CrossOrigin
+
+try:
+    from falcon_crossorigin import CrossOrigin
+except ImportError:  # pragma: no cover
+    pass
 
 from app.config import parser, settings
-from app.middleware import JSONTranslator
 from app.resources import setup_routes
 from app.util.config import setup_vyper
 from app.util.error import error_handler
@@ -16,15 +19,15 @@ from app.util.logging import setup_logging
 logger = logging.getLogger(__name__)
 
 
-def configure(**overrides):
+def configure(**overrides: Dict[str, Any]):
     logging.getLogger("vyper").setLevel(logging.WARNING)
     setup_vyper(parser, overrides)
     setup_logging()
 
 
-def create_app():
-    mw = [JSONTranslator()]
-    if settings.get_bool("CORS_ENABLED"):
+def create_app() -> falcon.API:
+    mw = []
+    if settings.get_bool("CORS_ENABLED"):  # pragma: no cover
         cors = CrossOrigin(
             allow_origins=settings.get("CORS_ALLOW_ORIGINS"),
             allow_methods=settings.get("CORS_ALLOW_METHODS"),
@@ -37,12 +40,12 @@ def create_app():
 
     app = falcon.API(middleware=mw)
 
-    json_handler = media.JSONHandler(
+    json_handler = falcon.media.JSONHandler(
         dumps=partial(rapidjson.dumps, ensure_ascii=False, sort_keys=True),
         loads=rapidjson.loads,
     )
     extra_handlers = {
-        "application/json": json_handler,
+        falcon.MEDIA_JSON: json_handler,
     }
 
     app.req_options.media_handlers.update(extra_handlers)
@@ -54,6 +57,6 @@ def create_app():
     return app
 
 
-def start():
+def start():  # pragma: no cover
     logger.info("Starting {}".format(settings.get("APP_NAME")))
     logger.info("Environment: {}".format(settings.get("ENV_NAME")))

@@ -1,17 +1,19 @@
+import argparse
 import os
+from typing import Any, Dict
 
 from vyper import v
 
 settings = v
 
 
-def setup_vyper(parser, overrides=None):
+def setup_vyper(parser: argparse.ArgumentParser, overrides: Dict[str, Any] = None):
     env_name = os.getenv("APP_ENV_NAME", "LOCAL").lower()
     config_name = "config.{}".format(env_name)
 
     v.bind_args(parser)
 
-    if overrides:
+    if overrides:  # pragma: no cover
         for k, val in overrides.items():
             v.set(k, val)
 

@@ -1,6 +1,7 @@
 import logging
 import multiprocessing
 
+import falcon
 import gunicorn.app.base
 
 from app import configure, create_app, start
@@ -28,7 +29,7 @@ class Application(gunicorn.app.base.BaseApplication):
         return self.application
 
 
-def init_app():
+def init_app() -> falcon.API:
     configure()
     return create_app()
 

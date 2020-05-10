@@ -14,7 +14,7 @@ help:
 	@echo "       update dependencies"
 	@echo "make test"
 	@echo "       run tests"
-	@echo "make fmt"
+	@echo "make lint"
 	@echo "       run black"
 
 build:
