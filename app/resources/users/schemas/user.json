@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://example.com/user.schema.json",
+    "description": "A user account.",
+    "type": "object",
+    "properties": {
+        "id": {
+            "$id": "#/properties/id",
+            "type": "string",
+            "description": "Unique identifier for this user.",
+            "readOnly": true
+        },
+        "first_name": {
+            "$id": "#/properties/first_name",
+            "type": "string",
+            "description": "The first name of the user."
+        },
+        "last_name": {
+            "$id": "#/properties/last_name",
+            "type": "string",
+            "description": "The last name of the user."
+        },
+        "email": {
+            "$id": "#/properties/email",
+            "type": "string",
+            "format": "email",
+            "description": "The email of the user."
+        },
+        "created_at": {
+            "$id": "#/properties/created_at",
+            "type": "string",
+            "format": "date-time",
+            "description": "RFC3339 format when the user was created.",
+            "readOnly": true
+        },
+        "updated_at": {
+            "$id": "#/properties/updated_at",
+            "type": "string",
+            "format": "date-time",
+            "description": "RFC3339 format when the user was last updated.",
+            "readOnly": true
+        },
+        "deleted_at": {
+            "$id": "#/properties/deleted_at",
+            "type": "string",
+            "format": "date-time",
+            "description": "RFC3339 format when the user was deleted.",
+            "readOnly": true
+        }
+    },
+    "additionalProperties": false
+}

@@ -85,9 +85,9 @@ def test_delete(mapper):
     assert user.deleted_at is not None
 
 
-def test_find_by_email(mapper):
+def test_find_by_email_or_id(mapper):
     user = user1()
     mapper.users = [user.to_dict()]
-    result = mapper.find_by_email(user.email)
+    result = mapper.find_by_email_or_id(user.email, user.id)
 
     assert result.email == user.email

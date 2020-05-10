@@ -31,13 +31,13 @@ class UserMapper(BaseMapper):
             if user["id"] == user_id:
                 return idx
 
-    def find_by_email(self, email: str) -> Union[UserModel, None]:
+    def find_by_email_or_id(self, email: str, id: str) -> Union[UserModel, None]:
         for user in self.users:
-            if user["email"] == email:
+            if user["email"] == email or user["id"] == id:
                 return UserModel().from_dict(user)
 
     def create(self, user: UserModel) -> UserModel:
-        exists = self.find_by_email(user.email)
+        exists = self.find_by_email_or_id(user.email, user.id)
         if exists:
             raise ValueError
         self.users.append(user.to_dict())

@@ -6,12 +6,15 @@ from ..mappers import UserMapper
 from ..models import UserModel
 
 
-def create_schema():
-    return load_schema("./app/resources/users/schemas/create.json")
+def schema():
+    user = load_schema("../schemas/user.json")
+    create = load_schema("../schemas/create.json")
+    user.update(create)
+    return user
 
 
 class Users:
-    @validate(create_schema())
+    @validate(schema())
     def on_post(self, req, resp):
         db = UserMapper()
         id = str(int(sorted(db.users, key=lambda k: k["id"])[-1]["id"]) + 1)

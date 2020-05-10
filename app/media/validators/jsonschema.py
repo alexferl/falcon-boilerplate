@@ -1,6 +1,8 @@
 # code based on falcon.media.validators.jsonschema
 
+import inspect
 from functools import wraps
+from pathlib import Path
 
 import falcon
 from falcon.media.validators.jsonschema import validate as falcon_validate
@@ -15,7 +17,10 @@ from app.util.error import HTTPError
 
 
 def load_schema(path: str) -> dict:
-    with open(path, "r") as fh:
+    base_path = Path((inspect.stack()[1])[1]).parent
+    fp = (base_path / path).resolve()
+
+    with open(fp, "r") as fh:
         data = json.loads(fh.read())
         return data
 

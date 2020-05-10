@@ -31,7 +31,7 @@ def test_delete_user(client, user):
         result = client.simulate_delete("/users/1")
 
         assert result.status == falcon.HTTP_GONE
-        assert user.deleted_at != ""
+        assert user.deleted_at is not None
 
 
 @skip_missing_dep
@@ -43,4 +43,11 @@ def test_edit_user(client, user):
 
         assert result.status == falcon.HTTP_OK
         assert result.json["last_name"] == doc["last_name"]
-        assert result.json["updated_at"] != ""
+        assert result.json["updated_at"] is not None
+
+
+def test_get_schema(client):
+    result = client.simulate_get("/user.schema.json")
+
+    assert result.status == falcon.HTTP_OK
+    assert result.json["description"] == "A user account."

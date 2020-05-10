@@ -5,8 +5,8 @@ from app.media.validators.jsonschema import load_schema, validate
 from ..mappers import UserMapper
 
 
-def update_schema():
-    return load_schema("./app/resources/users/schemas/update.json")
+def schema():
+    return load_schema("../schemas/user.json")
 
 
 class User:
@@ -15,7 +15,7 @@ class User:
 
         resp.media = user.to_dict()
 
-    @validate(update_schema())
+    @validate(schema())
     def on_put(self, req, resp, user_id):
         db = UserMapper()
         user = resolve_obj(user_id, db)
@@ -33,3 +33,8 @@ class User:
         db.save(user)
 
         resp.status = falcon.HTTP_NO_CONTENT
+
+
+class UserSchema:
+    def on_get(self, req, resp):
+        resp.media = schema()
