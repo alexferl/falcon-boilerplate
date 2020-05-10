@@ -12,7 +12,7 @@ before_install:
   - pip install -U pytest-cov
   - pip install -U codecov
 install:
-  - pip install -r dev_requirements.txt .
+  - pip install -r dev_requirements.txt
 script: pytest --cov=./app
 after_success:
   - codecov
