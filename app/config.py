@@ -28,6 +28,28 @@ g.add_argument(
     help="Prefix for environment variables (default %(default)s)",
 )
 
+# See rapidjson's docs (https://python-rapidjson.readthedocs.io/en/latest/api.html)
+# for the following settings:
+
+g.add_argument(
+    "--json-number-mode",
+    type=str,
+    default=None,
+    help="Enable particular behaviors in handling numbers (default %(default)s)",
+)
+g.add_argument(
+    "--json-datetime-mode",
+    type=str,
+    default=None,
+    help="How should datetime, time and date instances be handled (default %(default)s)",
+)
+g.add_argument(
+    "--json-uuid-mode",
+    type=str,
+    default=None,
+    help="How should UUID instances be handled (default %(default)s)",
+)
+
 # Gunicorn
 gu = parser.add_argument_group("Gunicorn")
 gu.add_argument(

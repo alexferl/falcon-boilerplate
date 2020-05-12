@@ -1,7 +1,6 @@
 import pytest
-from pydantic import BaseModel
 
-from app.data.model import Model
+from app.data.model import BaseModel, Model
 
 
 class NestedModel(BaseModel):

@@ -1,3 +1,5 @@
+from uuid import UUID
+
 import pytest
 
 from app.resources.users.mappers import UserMapper
@@ -14,7 +16,10 @@ def mapper():
 
 def test_create(mapper):
     new_user = UserModel(
-        id="123", first_name="New", last_name="User", email="newuser@example.com"
+        id=UUID("6b5a3e0e-ca4d-44f8-93cd-26f57ea3f705"),
+        first_name="New",
+        last_name="User",
+        email="newuser@example.com",
     )
     result = mapper.create(new_user)
 
@@ -34,7 +39,7 @@ def test_create_exists(mapper):
 def test_get(mapper):
     user = user1()
     mapper.users = [user1().to_dict()]
-    result = mapper.get("1")
+    result = mapper.get("1f0d0473-6401-4d18-864f-492989276641")
 
     assert result.id == user.id
     assert result.first_name == user.first_name

@@ -17,8 +17,7 @@ class Users:
     @validate(schema())
     def on_post(self, req, resp):
         db = UserMapper()
-        id = str(int(sorted(db.users, key=lambda k: k["id"])[-1]["id"]) + 1)
-        um = UserModel(id=id).from_dict(req.media)
+        um = UserModel(**req.media)
 
         try:
             user = db.create(um)

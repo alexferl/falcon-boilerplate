@@ -1,29 +1,28 @@
 from __future__ import annotations
+import uuid
+from datetime import datetime
 
 from pydantic import BaseModel, Field
 
 from app.media import json
-from app.util.date import get_isoformat
+
+BaseModel = BaseModel
 
 
 class Model(BaseModel):
-    id: str = ""
-    created_at: str = Field(default_factory=get_isoformat)
-    deleted_at: str = None
-    updated_at: str = None
+    id: uuid.UUID = Field(default_factory=uuid.uuid4)
+    created_at: datetime = Field(default_factory=datetime.now)
+    deleted_at: datetime = None
+    updated_at: datetime = None
 
     def delete(self):
-        self.deleted_at = get_isoformat()
+        self.deleted_at = datetime.now()
 
     def update(self, d: dict) -> Model:
-        d["updated_at"] = get_isoformat()
-        return self.from_dict(d)
-
-    def from_dict(self, d: dict) -> Model:
-        return self.parse_obj(d)
-
-    def from_json(self, d: str) -> Model:
-        return self.from_dict(json.loads(d))
+        d["updated_at"] = datetime.now()
+        o = self.to_dict()
+        o.update(d)
+        return self.parse_obj(o)
 
     def to_dict(self) -> dict:
         return self.dict()

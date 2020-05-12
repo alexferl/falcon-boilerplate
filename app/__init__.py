@@ -1,9 +1,7 @@
 import logging
 from functools import partial
-from typing import Any, Dict
 
 import falcon
-import rapidjson
 
 try:
     from falcon_crossorigin import CrossOrigin
@@ -11,6 +9,7 @@ except ImportError:  # pragma: no cover
     pass
 
 from app.config import parser, settings
+from app.media import json
 from app.resources import setup_routes
 from app.util.config import setup_vyper
 from app.util.error import error_handler
@@ -19,7 +18,7 @@ from app.util.logging import setup_logging
 logger = logging.getLogger(__name__)
 
 
-def configure(**overrides: Dict[str, Any]):
+def configure(**overrides: str):
     logging.getLogger("vyper").setLevel(logging.WARNING)
     setup_vyper(parser, overrides)
     setup_logging()
@@ -40,9 +39,12 @@ def create_app() -> falcon.API:
 
     app = falcon.API(middleware=mw)
 
+    dump_kwargs = {"ensure_ascii": False, "sort_keys": True}
+    kwargs = json.add_settings_to_kwargs({})
+    dump_kwargs.update(kwargs)
+
     json_handler = falcon.media.JSONHandler(
-        dumps=partial(rapidjson.dumps, ensure_ascii=False, sort_keys=True),
-        loads=rapidjson.loads,
+        dumps=partial(json.dumps, **dump_kwargs), loads=partial(json.loads, **kwargs),
     )
     extra_handlers = {
         falcon.MEDIA_JSON: json_handler,

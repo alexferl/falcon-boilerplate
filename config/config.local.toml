@@ -1,2 +1,5 @@
 bind = "127.0.0.1:5000"
 env_name = "LOCAL"
+
+json_datetime_mode = "DM_ISO8601"
+json_uuid_mode = "UM_CANONICAL"

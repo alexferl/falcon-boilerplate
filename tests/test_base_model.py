@@ -1,10 +1,15 @@
 from app.media import json
+from tests.fixtures.model import MyModel
 
 doc = {"field1": "value1", "nested": {"field2": "value2"}}
 
 
-def test_create(model):
+def test_create():
+    model = MyModel(**doc)
+
     assert model.created_at is not None
+    assert model.field1 == doc["field1"]
+    assert model.nested.field2 == "value2"
 
 
 def test_delete(model):
@@ -14,25 +19,11 @@ def test_delete(model):
 
 
 def test_update(model):
-    model = model.update(doc)
+    updated = model.update({"field1": "value3", "nested": {"field2": "value4"}})
 
-    assert model.updated_at is not None
-    assert model.field1 == doc["field1"]
-    assert model.nested.field2 == "value2"
-
-
-def test_from_dict(model):
-    model = model.from_dict(doc)
-
-    assert model.field1 == doc["field1"]
-    assert model.nested.field2 == "value2"
-
-
-def test_from_json(model):
-    model = model.from_json(json.dumps(doc))
-
-    assert model.field1 == doc["field1"]
-    assert model.nested.field2 == "value2"
+    assert updated.updated_at is not None
+    assert updated.field1 == "value3"
+    assert updated.nested.field2 == "value4"
 
 
 def test_to_dict(model):
