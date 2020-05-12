@@ -1,10 +1,7 @@
-from dataclasses import dataclass
-
-from app.data.model import BaseModel
+from app.data.model import Model
 
 
-@dataclass
-class UserModel(BaseModel):
+class UserModel(Model):
     email: str = ""
     first_name: str = ""
     last_name: str = ""

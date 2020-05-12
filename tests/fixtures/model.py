@@ -1,13 +1,16 @@
-from dataclasses import dataclass
-
 import pytest
+from pydantic import BaseModel
 
-from app.data.model import BaseModel
+from app.data.model import Model
 
 
-@dataclass
-class MyModel(BaseModel):
-    k: str = ""
+class NestedModel(BaseModel):
+    field2: str = ""
+
+
+class MyModel(Model):
+    field1: str = ""
+    nested: NestedModel = NestedModel()
 
 
 @pytest.fixture

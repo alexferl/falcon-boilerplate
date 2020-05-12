@@ -16,9 +16,14 @@ from app.media import json
 from app.util.error import HTTPError
 
 
-def load_schema(path: str) -> dict:
-    base_path = Path((inspect.stack()[1])[1]).parent
-    fp = (base_path / path).resolve()
+def load_schema(rel_path: str) -> dict:
+    """
+    Loads a schema from a relative path of the caller of this function.
+    :param rel_path: Relative path from the caller. e.g. ../schemas/schema.json
+    :return: Loaded schema as a `dict`.
+    """
+    caller_path = Path((inspect.stack()[1])[1]).parent
+    fp = (caller_path / rel_path).resolve()
 
     with open(fp, "r") as fh:
         data = json.loads(fh.read())

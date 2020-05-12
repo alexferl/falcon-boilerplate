@@ -20,7 +20,7 @@ class User:
         db = UserMapper()
         user = resolve_obj(user_id, db)
 
-        user.update(req.media)
+        user = user.update(req.media)
         db.save(user)
 
         resp.media = user.to_dict()

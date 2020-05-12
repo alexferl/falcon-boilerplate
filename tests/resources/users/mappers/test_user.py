@@ -69,7 +69,7 @@ def test_update(mapper):
     user = user1()
     mapper.users = [user.to_dict()]
     doc = {"last_name": "Updated"}
-    user.update(doc)
+    user = user.update(doc)
     mapper.save(user)
 
     assert user.last_name == doc["last_name"]
