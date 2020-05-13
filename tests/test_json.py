@@ -27,7 +27,8 @@ def test_json_dump():
 
 def test_json_loads():
     doc = {"k": "v"}
-    result = json.loads(json.dumps(doc))
+    doc_str = '{"k": "v"}'
+    result = json.loads(doc_str)
 
     assert result == doc
 

@@ -3,6 +3,26 @@ import rapidjson
 from app.config import settings
 
 
+def dump(obj: object, stream: bytes, *args, **kwargs) -> bytes:
+    kwargs = add_settings_to_kwargs(kwargs)
+    return rapidjson.dump(obj, stream, *args, **kwargs)
+
+
+def dumps(obj: object, *args, **kwargs) -> bytes:
+    kwargs = add_settings_to_kwargs(kwargs)
+    return rapidjson.dumps(obj, *args, **kwargs)
+
+
+def load(stream: bytes, *args, **kwargs) -> dict:
+    kwargs = add_settings_to_kwargs(kwargs)
+    return rapidjson.load(stream, *args, **kwargs)
+
+
+def loads(string: str, *args, **kwargs) -> dict:
+    kwargs = add_settings_to_kwargs(kwargs)
+    return rapidjson.loads(string, *args, **kwargs)
+
+
 def add_settings_to_kwargs(kwargs):
     json_datetime_mode = settings.get("JSON_DATETIME_MODE")
     json_number_mode = settings.get("JSON_NUMBER_MODE")
@@ -34,23 +54,3 @@ def add_settings_to_kwargs(kwargs):
         kwargs["uuid_mode"] = uuid_mode
 
     return kwargs
-
-
-def dump(obj: object, stream: bytes, *args, **kwargs) -> bytes:
-    kwargs = add_settings_to_kwargs(kwargs)
-    return rapidjson.dump(obj, stream, *args, **kwargs)
-
-
-def dumps(obj: object, *args, **kwargs) -> bytes:
-    kwargs = add_settings_to_kwargs(kwargs)
-    return rapidjson.dumps(obj, *args, **kwargs)
-
-
-def load(stream: bytes, *args, **kwargs) -> dict:
-    kwargs = add_settings_to_kwargs(kwargs)
-    return rapidjson.load(stream, *args, **kwargs)
-
-
-def loads(string: str, *args, **kwargs) -> dict:
-    kwargs = add_settings_to_kwargs(kwargs)
-    return rapidjson.loads(string, *args, **kwargs)
