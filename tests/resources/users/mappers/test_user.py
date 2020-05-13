@@ -1,3 +1,4 @@
+from datetime import datetime
 from uuid import UUID
 
 import pytest
@@ -39,13 +40,21 @@ def test_create_exists(mapper):
 def test_get(mapper):
     user = user1()
     mapper.users = [user1().to_dict()]
-    result = mapper.get("1f0d0473-6401-4d18-864f-492989276641")
+    result = mapper.get("1f0d047364014d18864f492989276641")
 
     assert result.id == user.id
     assert result.first_name == user.first_name
     assert result.last_name == user.last_name
     assert result.email == user.email
     assert result.created_at == user.created_at
+
+
+def test_get_with_uuid(mapper):
+    user = user1()
+    mapper.users = [user1().to_dict()]
+    result = mapper.get(UUID("1f0d0473-6401-4d18-864f-492989276641"))
+
+    assert result.id == user.id
 
 
 def test_get_all(mapper):
@@ -57,7 +66,7 @@ def test_get_all(mapper):
 
 def test_get_all_deleted(mapper):
     user = user2()
-    user.deleted_at = "123"
+    user.deleted_at = datetime.now()
     mapper.users = [user1().to_dict(), user.to_dict()]
     result = mapper.get_all()
 
@@ -90,9 +99,9 @@ def test_delete(mapper):
     assert user.deleted_at is not None
 
 
-def test_find_by_email_or_id(mapper):
+def test_find_by_email(mapper):
     user = user1()
     mapper.users = [user.to_dict()]
-    result = mapper.find_by_email_or_id(user.email, user.id)
+    result = mapper.find_by_email(user.email)
 
     assert result.email == user.email

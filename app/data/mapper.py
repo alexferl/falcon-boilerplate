@@ -7,7 +7,7 @@ from app.data.model import Model
 from app.util.error import HTTPError
 
 
-class BaseMapper(metaclass=abc.ABCMeta):
+class Mapper(metaclass=abc.ABCMeta):
     def create(self, obj: Model) -> Model:
         raise NotImplementedError()
 
@@ -21,7 +21,7 @@ class BaseMapper(metaclass=abc.ABCMeta):
         raise NotImplementedError()
 
 
-def resolve_obj(id: str, mapper: BaseMapper) -> Model:
+def resolve_obj(id: str, mapper: Mapper) -> Model:
     name = mapper.__class__.__name__.lower().split("mapper")[0].capitalize()
     obj = mapper.get(id)
 

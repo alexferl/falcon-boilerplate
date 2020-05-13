@@ -31,7 +31,7 @@ def test_create_user_already_exists(client, user):
         "last_name": user.last_name,
         "email": user.email,
     }
-    with patch.object(UserMapper, "find_by_email_or_id", return_value=user):
+    with patch.object(UserMapper, "_find_by_email_or_id", return_value=user):
         result = client.simulate_post("/users", json=doc)
         assert result.status == falcon.HTTP_CONFLICT
 

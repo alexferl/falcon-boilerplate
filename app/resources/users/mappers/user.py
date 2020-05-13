@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import List, Union
 from uuid import UUID
 
-from app.data.mapper import BaseMapper
+from app.data.mapper import Mapper
 from ..models import UserModel
 
 USERS = [
@@ -23,31 +23,25 @@ USERS = [
 ]
 
 
-class UserMapper(BaseMapper):
+class UserMapper(Mapper):
     def __init__(self):
         global USERS
         self.users = USERS
 
-    def _get_index(self, user_id: str):
-        for idx, user in enumerate(self.users):
-            if str(user["id"]) == user_id:
-                return idx
-
-    def find_by_email_or_id(self, email: str, user_id: str) -> Union[UserModel, None]:
-        for user in self.users:
-            if user["email"] == email or str(user["id"]) == user_id:
-                return UserModel(**user)
-
     def create(self, user: UserModel) -> UserModel:
-        exists = self.find_by_email_or_id(user.email, str(user.id))
+        exists = self._find_by_email_or_id(user.email, user.id)
         if exists:
             raise ValueError
-        self.users.append(user.to_dict())
-        return self.get(str(user.id))
 
-    def get(self, user_id: str) -> Union[UserModel, None]:
+        self.users.append(user.to_dict())
+
+        return self.get(user.id)
+
+    def get(self, user_id: Union[str, UUID]) -> Union[UserModel, None]:
+        user_id = self._hex_str_to_uuid(user_id)
+
         for user in self.users:
-            if str(user["id"]) == user_id:
+            if user["id"] == user_id:
                 return UserModel(**user)
 
     def get_all(self) -> Union[List[UserModel], None]:
@@ -61,11 +55,39 @@ class UserMapper(BaseMapper):
                 continue
             else:
                 users.append(o)
+
         return users
 
     def save(self, user: UserModel) -> UserModel:
-        pos = self._get_index(str(user.id))
+        pos = self._get_index(user.id)
         if pos is not None:
             self.users[pos] = user.to_dict()
 
         return user
+
+    def find_by_email(self, email: str) -> Union[UserModel, None]:
+        for user in self.users:
+            if user["email"] == email:
+                return UserModel(**user)
+
+    def _get_index(self, user_id: Union[str, UUID]):
+        user_id = self._hex_str_to_uuid(user_id)
+
+        for idx, user in enumerate(self.users):
+            if user["id"] == user_id:
+                return idx
+
+    def _find_by_email_or_id(
+        self, email: str, user_id: Union[str, UUID]
+    ) -> Union[UserModel, None]:
+        user_id = self._hex_str_to_uuid(user_id)
+
+        for user in self.users:
+            if user["email"] == email or user["id"] == user_id:
+                return UserModel(**user)
+
+    @staticmethod
+    def _hex_str_to_uuid(user_id: Union[str, UUID]) -> UUID:
+        if isinstance(user_id, str):
+            return UUID(user_id)
+        return user_id

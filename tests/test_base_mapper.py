@@ -1,11 +1,11 @@
 import falcon
 import pytest
 
-from app.data.mapper import BaseMapper, resolve_obj
+from app.data.mapper import Mapper, resolve_obj
 from app.util.error import HTTPError
 
 
-class NotImplementedMapper(BaseMapper):
+class NotImplementedMapper(Mapper):
     pass
 
 
@@ -21,7 +21,7 @@ def test_mapper_not_implemented():
         mapper.save(None)
 
 
-class MyMapper(BaseMapper):
+class MyMapper(Mapper):
     def __init__(self):
         self.model = None
 

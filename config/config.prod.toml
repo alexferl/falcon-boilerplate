@@ -2,4 +2,4 @@ bind = "0.0.0.0:5000"
 env_name = "PROD"
 
 json_datetime_mode = "DM_ISO8601"
-json_uuid_mode = "UM_CANONICAL"
+json_uuid_mode = "UM_HEX"
