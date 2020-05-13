@@ -1,8 +1,13 @@
 # falcon-boilerplate [![Build Status](https://travis-ci.org/admiralobvious/falcon-boilerplate.svg?branch=master)](https://travis-ci.org/admiralobvious/falcon-boilerplate) [![codecov](https://codecov.io/gh/admiralobvious/falcon-boilerplate/branch/master/graph/badge.svg)](https://codecov.io/gh/admiralobvious/falcon-boilerplate)
 
-A Python 3.7+ boilerplate for the [Falcon](https://github.com/falconry/falcon) framework.
-Uses [gunicorn](https://github.com/benoitc/gunicorn) as the WSGI HTTP server and [meinheld](https://github.com/mopemope/meinheld) as the gunicorn worker.
-It also uses [Vyper](https://github.com/admiralobvious/vyper) for [12-factor](https://12factor.net/).
+A boilerplate for the [Falcon](https://github.com/falconry/falcon) framework.
+
+## Requirements
+- Python 3.7+
+- [gunicorn](https://github.com/benoitc/gunicorn) as the WSGI HTTP server
+- [meinheld](https://github.com/mopemope/meinheld) as the gunicorn worker
+- [pydantic](https://github.com/samuelcolvin/pydantic) for data structures
+- [vyper](https://github.com/admiralobvious/vyper) for config management
 
 ## Using
 
