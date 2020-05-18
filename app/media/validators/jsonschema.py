@@ -7,14 +7,14 @@ from pathlib import Path
 import falcon
 from falcon.media.validators.jsonschema import validate as falcon_validate
 
+from app.media import json
+from app.util.error import HTTPError
+
 fastjsonschema_available = True
 try:
     import fastjsonschema
 except ImportError:  # pragma: no cover
     fastjsonschema_available = False
-
-from app.media import json
-from app.util.error import HTTPError
 
 
 def load_schema(rel_path: str) -> dict:

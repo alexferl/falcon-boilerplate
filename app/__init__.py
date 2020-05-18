@@ -11,7 +11,6 @@ from app.util.config import setup_vyper
 from app.util.error import error_handler
 from app.util.logging import setup_logging
 
-
 crossorigin_available = True
 try:
     from falcon_crossorigin import CrossOrigin
