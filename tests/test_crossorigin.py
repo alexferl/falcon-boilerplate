@@ -5,7 +5,7 @@ except ImportError:
 
 import pytest
 
-from app import configure, create_app, crossorigin_available
+from app import configure, create_app
 
 skip_missing_dep = pytest.mark.skipif(
     falcon_crossorigin is None, reason="falcon-crossorigin dependency not found"
@@ -14,6 +14,8 @@ skip_missing_dep = pytest.mark.skipif(
 
 @skip_missing_dep
 def test_crossorigin_available():
+    from app import crossorigin_available
+
     assert crossorigin_available
 
 
