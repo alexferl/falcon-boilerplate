@@ -7,10 +7,11 @@ from pathlib import Path
 import falcon
 from falcon.media.validators.jsonschema import validate as falcon_validate
 
+fastjsonschema_available = True
 try:
     import fastjsonschema
 except ImportError:  # pragma: no cover
-    fastjsonschema = None
+    fastjsonschema_available = False
 
 from app.media import json
 from app.util.error import HTTPError
@@ -64,7 +65,7 @@ def _validate(req_schema: dict = None, resp_schema: dict = None):
     return decorator
 
 
-if fastjsonschema is None:
+if fastjsonschema_available is False:
     validate = falcon_validate  # pragma: no cover
 else:
     validate = _validate

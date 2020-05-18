@@ -13,7 +13,7 @@ def setup_vyper(parser: argparse.ArgumentParser, overrides: Dict[str, Any] = Non
 
     v.bind_args(parser)
 
-    if overrides:  # pragma: no cover
+    if overrides:
         for k, val in overrides.items():
             v.set(k, val)
 

@@ -1,12 +1,8 @@
 import logging
 from functools import partial
+from typing import Any
 
 import falcon
-
-try:
-    from falcon_crossorigin import CrossOrigin
-except ImportError:  # pragma: no cover
-    pass
 
 from app.config import parser, settings
 from app.media import json
@@ -15,10 +11,17 @@ from app.util.config import setup_vyper
 from app.util.error import error_handler
 from app.util.logging import setup_logging
 
+
+crossorigin_available = True
+try:
+    from falcon_crossorigin import CrossOrigin
+except ImportError:  # pragma: no cover
+    crossorigin_available = False
+
 logger = logging.getLogger(__name__)
 
 
-def configure(**overrides: str):
+def configure(**overrides: Any):
     logging.getLogger("vyper").setLevel(logging.WARNING)
     setup_vyper(parser, overrides)
     setup_logging()
@@ -26,7 +29,12 @@ def configure(**overrides: str):
 
 def create_app() -> falcon.API:
     mw = []
-    if settings.get_bool("CORS_ENABLED"):  # pragma: no cover
+    if settings.get_bool("CORS_ENABLED"):
+        if crossorigin_available is False:
+            raise ImportError(
+                "'cors-enabled' set but falcon-crossorigin is not installed, "
+                "you must install it first to use CORS headers"
+            )
         cors = CrossOrigin(
             allow_origins=settings.get("CORS_ALLOW_ORIGINS"),
             allow_methods=settings.get("CORS_ALLOW_METHODS"),
@@ -59,6 +67,6 @@ def create_app() -> falcon.API:
     return app
 
 
-def start():  # pragma: no cover
+def start():
     logger.info("Starting {}".format(settings.get("APP_NAME")))
     logger.info("Environment: {}".format(settings.get("ENV_NAME")))
