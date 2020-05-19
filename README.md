@@ -29,10 +29,7 @@ $ make test
 
 - [fastjsonschema](https://github.com/horejsek/python-fastjsonschema) or 
 [jsonschema](https://github.com/Julian/jsonschema) if you wanna validate the requests/responses with 
-[JSON Schema](https://json-schema.org/).
-
-**NOTE**: The `/users` resources will not work if you don't have fastjsonschema or jsonschema installed.
-
+[JSON Schema](https://json-schema.org/). **NOTE**: The `/users` resources will not work if you don't have fastjsonschema or jsonschema installed.
 - [falcon-crossorigin](https://github.com/admiralobvious/falcon-crossorigin) if you need 
 [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) headers.
 Must be enabled by passing `--cors-enabled` to `run.py` or any of the other ways supported by Vyper.
