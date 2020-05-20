@@ -1,4 +1,4 @@
-# falcon-boilerplate [![Build Status](https://travis-ci.org/admiralobvious/falcon-boilerplate.svg?branch=master)](https://travis-ci.org/admiralobvious/falcon-boilerplate) [![codecov](https://codecov.io/gh/admiralobvious/falcon-boilerplate/branch/master/graph/badge.svg)](https://codecov.io/gh/admiralobvious/falcon-boilerplate)
+# falcon-boilerplate [![Build Status](https://travis-ci.com/admiralobvious/falcon-boilerplate.svg?branch=master)](https://travis-ci.com/admiralobvious/falcon-boilerplate) [![codecov](https://codecov.io/gh/admiralobvious/falcon-boilerplate/branch/master/graph/badge.svg)](https://codecov.io/gh/admiralobvious/falcon-boilerplate)
 
 A boilerplate for the [Falcon](https://github.com/falconry/falcon) framework.
 
@@ -27,12 +27,9 @@ $ make test
 
 ## Optional Dependencies
 
-Install [fastjsonschema](https://github.com/horejsek/python-fastjsonschema) or 
+- [fastjsonschema](https://github.com/horejsek/python-fastjsonschema) or 
 [jsonschema](https://github.com/Julian/jsonschema) if you wanna validate the requests/responses with 
-[JSON Schema](https://json-schema.org/).
-
-**NOTE**: The `/users` resources will not work if you don't have fastjsonschema or jsonschema installed.
-
-Install [falcon-crossorigin](https://github.com/admiralobvious/falcon-crossorigin) if you need 
+[JSON Schema](https://json-schema.org/). **NOTE**: The `/users` resources will not work if you don't have fastjsonschema or jsonschema installed.
+- [falcon-crossorigin](https://github.com/admiralobvious/falcon-crossorigin) if you need 
 [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) headers.
 Must be enabled by passing `--cors-enabled` to `run.py` or any of the other ways supported by Vyper.
