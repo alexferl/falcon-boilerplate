@@ -1,6 +1,7 @@
 import falcon
 import pytest
 
+from app.data.db import setup
 from app.data.mapper import Mapper, resolve_obj
 from app.util.error import HTTPError
 
@@ -10,7 +11,8 @@ class NotImplementedMapper(Mapper):
 
 
 def test_mapper_not_implemented():
-    mapper = NotImplementedMapper()
+    db = setup()
+    mapper = NotImplementedMapper(db)
     with pytest.raises(NotImplementedError):
         mapper.create(None)
     with pytest.raises(NotImplementedError):
@@ -22,7 +24,8 @@ def test_mapper_not_implemented():
 
 
 class MyMapper(Mapper):
-    def __init__(self):
+    def __init__(self, db):
+        super().__init__(db)
         self.model = None
 
     def create(self, obj):
@@ -40,7 +43,8 @@ class MyMapper(Mapper):
 
 @pytest.fixture
 def mapper():
-    return MyMapper()
+    db = setup()
+    return MyMapper(db)
 
 
 def test_resolve_obj_raises_bad_request(mapper):

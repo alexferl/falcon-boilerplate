@@ -1,6 +1,7 @@
 import falcon
 
 from app.media.validators.jsonschema import load_schema, validate
+from app.resources import Resource
 from app.util.error import HTTPError
 from ..mappers import UserMapper
 from ..models import UserModel
@@ -13,10 +14,10 @@ def schema():
     return user
 
 
-class Users:
+class Users(Resource):
     @validate(schema())
     def on_post(self, req, resp):
-        db = UserMapper()
+        db = UserMapper(self._db)
         um = UserModel(**req.media)
 
         try:
@@ -28,7 +29,7 @@ class Users:
         resp.media = user.to_dict()
 
     def on_get(self, req, resp):
-        db = UserMapper()
+        db = UserMapper(self._db)
         users = [user.to_dict() for user in db.get_all()]
 
         resp.media = {"users": users}

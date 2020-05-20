@@ -6,7 +6,7 @@ import falcon
 
 from app.config import parser, settings
 from app.media import json
-from app.resources import setup_routes
+from app.resources.routes import setup as setup_routes
 from app.util.config import setup_vyper
 from app.util.error import error_handler
 from app.util.logging import setup_logging
