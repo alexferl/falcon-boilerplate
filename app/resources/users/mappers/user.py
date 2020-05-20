@@ -14,23 +14,23 @@ class UserMapper(Mapper):
         if exists:
             raise ValueError
 
-        self._db.insert(user.to_dict())
+        self._db.users.insert(user.to_dict())
 
         return self.get(user.id)
 
     def get(self, user_id: Union[str, UUID]) -> Union[UserModel, None]:
         user_id = self._hex_str_to_uuid(user_id)
 
-        for user in self._db.find():
+        for user in self._db.users.find():
             if user["id"] == user_id:
                 return UserModel(**user)
 
     def get_all(self) -> Union[List[UserModel], None]:
-        if len(self._db.find()) < 1:
+        if len(self._db.users.find()) < 1:
             return []
 
         users = []
-        for user in self._db.find():
+        for user in self._db.users.find():
             o = UserModel(**user)
             if getattr(o, "deleted_at") and o.deleted_at is not None:
                 continue
@@ -42,19 +42,19 @@ class UserMapper(Mapper):
     def save(self, user: UserModel) -> UserModel:
         pos = self._get_index(user.id)
         if pos is not None:
-            self._db.update(pos, user.to_dict())
+            self._db.users.update(pos, user.to_dict())
 
         return user
 
     def find_by_email(self, email: str) -> Union[UserModel, None]:
-        for user in self._db.find():
+        for user in self._db.users.find():
             if user["email"] == email:
                 return UserModel(**user)
 
     def _get_index(self, user_id: Union[str, UUID]):
         user_id = self._hex_str_to_uuid(user_id)
 
-        for idx, user in enumerate(self._db.find()):
+        for idx, user in enumerate(self._db.users.find()):
             if user["id"] == user_id:
                 return idx
 
@@ -63,7 +63,7 @@ class UserMapper(Mapper):
     ) -> Union[UserModel, None]:
         user_id = self._hex_str_to_uuid(user_id)
 
-        for user in self._db.find():
+        for user in self._db.users.find():
             if user["email"] == email or user["id"] == user_id:
                 return UserModel(**user)
 

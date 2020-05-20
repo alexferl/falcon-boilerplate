@@ -3,7 +3,7 @@ from uuid import UUID
 
 import pytest
 
-from app.data.db import setup
+from app.data.db import setup, _Collection
 from app.resources.users.mappers import UserMapper
 from app.resources.users.models import UserModel
 from .. import user1, user2
@@ -12,8 +12,9 @@ from .. import user1, user2
 @pytest.fixture
 def mapper():
     db = setup()
+    db.users = _Collection("users")
+    db.users._data = {"users": []}
     mapper = UserMapper(db)
-    mapper._db._data = []
     return mapper
 
 
@@ -34,14 +35,14 @@ def test_create(mapper):
 
 
 def test_create_exists(mapper):
-    mapper._db._data = [user1().to_dict()]
+    mapper._db.users._data = {"users": [user1().to_dict()]}
     with pytest.raises(ValueError):
         mapper.create(user1())
 
 
 def test_get(mapper):
     user = user1()
-    mapper._db._data = [user1().to_dict()]
+    mapper._db.users._data = {"users": [user1().to_dict()]}
     result = mapper.get("1f0d047364014d18864f492989276641")
 
     assert result.id == user.id
@@ -53,14 +54,14 @@ def test_get(mapper):
 
 def test_get_with_uuid(mapper):
     user = user1()
-    mapper._db._data = [user1().to_dict()]
+    mapper._db.users._data = {"users": [user1().to_dict()]}
     result = mapper.get(UUID("1f0d0473-6401-4d18-864f-492989276641"))
 
     assert result.id == user.id
 
 
 def test_get_all(mapper):
-    mapper._db._data = [user1().to_dict(), user2().to_dict()]
+    mapper._db.users._data = {"users": [user1().to_dict(), user2().to_dict()]}
     result = mapper.get_all()
 
     assert len(result) == 2
@@ -69,7 +70,7 @@ def test_get_all(mapper):
 def test_get_all_deleted(mapper):
     user = user2()
     user.deleted_at = datetime.now()
-    mapper._db._data = [user1().to_dict(), user.to_dict()]
+    mapper._db.users._data = {"users": [user1().to_dict(), user.to_dict()]}
     result = mapper.get_all()
 
     assert len(result) == 1
@@ -83,7 +84,7 @@ def test_get_all_empty(mapper):
 
 def test_update(mapper):
     user = user1()
-    mapper._db._data = [user.to_dict()]
+    mapper._db.users._data = {"users": [user.to_dict()]}
     doc = {"last_name": "Updated"}
     user = user.update(doc)
     mapper.save(user)
@@ -94,7 +95,7 @@ def test_update(mapper):
 
 def test_delete(mapper):
     user = user1()
-    mapper._db._data = [user.to_dict()]
+    mapper._db.users._data = {"users": [user.to_dict()]}
     user.delete()
     mapper.save(user)
 
@@ -103,7 +104,7 @@ def test_delete(mapper):
 
 def test_find_by_email(mapper):
     user = user1()
-    mapper._db._data = [user.to_dict()]
+    mapper._db.users._data = {"users": [user.to_dict()]}
     result = mapper.find_by_email(user.email)
 
     assert result.email == user.email
