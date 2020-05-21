@@ -21,9 +21,9 @@ def test_crossorigin_available():
 
 @skip_missing_dep
 def test_crossorigin_unavailable(monkeypatch):
-    import app
+    import app.app
 
-    monkeypatch.setattr(app, "crossorigin_available", False)
+    monkeypatch.setattr(app.app, "crossorigin_available", False)
     with pytest.raises(ImportError):
         configure(cors_enabled=True)
         create_app()

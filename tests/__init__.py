@@ -1,4 +1,5 @@
-from app import settings, configure
+from app import configure
+from app.config import settings
 
 settings.parse_argv_disabled = True  # don't parse pytest's args
 

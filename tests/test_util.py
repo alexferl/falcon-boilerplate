@@ -1,4 +1,5 @@
-from app import settings, configure
+from app import configure
+from app.config import settings
 
 
 def test_config_override():

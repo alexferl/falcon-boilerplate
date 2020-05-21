@@ -3,6 +3,7 @@
 import inspect
 from functools import wraps
 from pathlib import Path
+from typing import Dict
 
 import falcon
 from falcon.media.validators.jsonschema import validate as falcon_validate
@@ -17,7 +18,7 @@ except ImportError:  # pragma: no cover
     fastjsonschema_available = False
 
 
-def load_schema(rel_path: str) -> dict:
+def load_schema(rel_path: str) -> Dict:
     """
     Loads a schema from a relative path of the caller of this function.
     :param rel_path: Relative path from the caller. e.g. ../schemas/schema.json
@@ -31,7 +32,7 @@ def load_schema(rel_path: str) -> dict:
         return data
 
 
-def _validate(req_schema: dict = None, resp_schema: dict = None):
+def _validate(req_schema: Dict = None, resp_schema: Dict = None):
     def decorator(func):
         @wraps(func)
         def wrapper(self, req, resp, *args, **kwargs):

@@ -1,3 +1,5 @@
+from typing import Dict
+
 import rapidjson
 
 from app.config import settings
@@ -13,17 +15,17 @@ def dumps(obj: object, *args, **kwargs) -> bytes:
     return rapidjson.dumps(obj, *args, **kwargs)
 
 
-def load(stream: bytes, *args, **kwargs) -> dict:
+def load(stream: bytes, *args, **kwargs) -> Dict:
     kwargs = add_settings_to_kwargs(kwargs)
     return rapidjson.load(stream, *args, **kwargs)
 
 
-def loads(string: str, *args, **kwargs) -> dict:
+def loads(string: str, *args, **kwargs) -> Dict:
     kwargs = add_settings_to_kwargs(kwargs)
     return rapidjson.loads(string, *args, **kwargs)
 
 
-def add_settings_to_kwargs(kwargs):
+def add_settings_to_kwargs(kwargs: Dict[str, str]) -> Dict[str, str]:
     json_datetime_mode = settings.get("JSON_DATETIME_MODE")
     json_number_mode = settings.get("JSON_NUMBER_MODE")
     json_uuid_mode = settings.get("JSON_UUID_MODE")

@@ -1,9 +1,10 @@
 from __future__ import annotations
 from datetime import datetime
+from typing import Any, Dict, List
 from uuid import UUID
 
 
-def setup(clear=False) -> _InMemDB:
+def setup(clear: bool = False) -> _InMemDB:
     if clear is True:
         global _data
         _data = {}
@@ -32,12 +33,12 @@ _data = {
 
 
 class _InMemDB:
-    def __getattr__(self, item):
+    def __getattr__(self, item: str) -> _Collection:
         return _Collection(item)
 
 
 class _Collection:
-    def __init__(self, name):
+    def __init__(self, name: str):
         global _data
         self._data = _data
 
@@ -45,11 +46,11 @@ class _Collection:
         if self.name not in self._data:
             self._data[self.name] = []
 
-    def insert(self, data):
+    def insert(self, data: Dict[str, Any]):
         self._data[self.name].append(data)
 
-    def update(self, id_, data):
+    def update(self, id_: int, data: Dict[str, Any]):
         self._data[self.name][id_] = data
 
-    def find(self):
+    def find(self) -> List[Dict]:
         return self._data[self.name]
