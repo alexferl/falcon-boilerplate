@@ -7,6 +7,7 @@ def setup(clear=False) -> _InMemDB:
     if clear is True:
         global _data
         _data = {}
+
     return _InMemDB()
 
 

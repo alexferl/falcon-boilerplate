@@ -1,8 +1,9 @@
 import falcon
 import pytest
 
+from app.data import retrieve_obj
 from app.data.db import setup
-from app.data.mapper import Mapper, resolve_obj
+from app.data.mapper import Mapper
 from app.util.error import HTTPError
 
 
@@ -49,7 +50,7 @@ def mapper():
 
 def test_resolve_obj_raises_bad_request(mapper):
     with pytest.raises(HTTPError) as excinfo:
-        resolve_obj("", mapper)
+        retrieve_obj("", mapper)
 
     assert excinfo.value.status == falcon.HTTP_BAD_REQUEST
 
@@ -58,13 +59,13 @@ def test_resolve_object_raises_gone(mapper, model):
     with pytest.raises(HTTPError) as excinfo:
         model.deleted_at = "123"
         mapper.model = model
-        resolve_obj("", mapper)
+        retrieve_obj("", mapper)
 
     assert excinfo.value.status == falcon.HTTP_GONE
 
 
 def test_resolve_obj_returns_obj(mapper, model):
     mapper.model = model
-    result = resolve_obj("", mapper)
+    result = retrieve_obj("", mapper)
 
     assert result == model

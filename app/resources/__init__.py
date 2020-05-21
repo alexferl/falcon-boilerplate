@@ -1,3 +1,3 @@
 class Resource:
-    def __init__(self, db=None):
+    def __init__(self, db):
         self._db = db

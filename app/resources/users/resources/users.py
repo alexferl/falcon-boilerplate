@@ -17,11 +17,11 @@ def schema():
 class Users(Resource):
     @validate(schema())
     def on_post(self, req, resp):
-        db = UserMapper(self._db)
-        um = UserModel(**req.media)
+        mapper = UserMapper(self._db)
+        user = UserModel(**req.media)
 
         try:
-            user = db.create(um)
+            user = mapper.create(user)
         except ValueError:
             raise HTTPError(falcon.HTTP_CONFLICT, "Email address already in-use")
 
@@ -29,7 +29,7 @@ class Users(Resource):
         resp.media = user.to_dict()
 
     def on_get(self, req, resp):
-        db = UserMapper(self._db)
-        users = [user.to_dict() for user in db.get_all()]
+        mapper = UserMapper(self._db)
+        users = [user.to_dict() for user in mapper.get_all()]
 
         resp.media = {"users": users}
