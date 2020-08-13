@@ -1,8 +1,8 @@
 from __future__ import annotations
-import uuid
 from datetime import datetime
 
 from pydantic import BaseModel, Field
+from xid import XID
 
 from app.media import json
 
@@ -10,10 +10,13 @@ BaseModel = BaseModel
 
 
 class Model(BaseModel):
-    id: uuid.UUID = Field(default_factory=uuid.uuid4)
+    id: XID = Field(default_factory=XID)
     created_at: datetime = Field(default_factory=datetime.now)
     deleted_at: datetime = None
     updated_at: datetime = None
+
+    class Config:
+        arbitrary_types_allowed = True
 
     def delete(self):
         self.deleted_at = datetime.now()

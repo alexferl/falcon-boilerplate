@@ -14,7 +14,7 @@ def test_get_user(client, user):
         result = client.simulate_get("/users/{}".format(user.id))
 
         assert result.status == falcon.HTTP_OK
-        assert result.json["id"] == user.id.hex
+        assert result.json["id"] == str(user.id)
         assert result.json["first_name"] == user.first_name
         assert result.json["last_name"] == user.last_name
         assert result.json["email"] == user.email

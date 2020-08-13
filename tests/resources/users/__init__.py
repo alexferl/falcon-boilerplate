@@ -1,12 +1,13 @@
 from datetime import datetime
-from uuid import UUID
+
+from xid import XID
 
 from app.resources.users.models import UserModel
 
 
 def user1():
     return UserModel(
-        id=UUID("1f0d0473-6401-4d18-864f-492989276641"),
+        id=XID("bsqpe67f38q71u3sq6og"),
         first_name="Test1",
         last_name="User1",
         email="testuser1@example.com",
@@ -16,7 +17,7 @@ def user1():
 
 def user2():
     return UserModel(
-        id=UUID("4371b50a-dd54-4849-959f-ad2321ade57c"),
+        id=XID("bsqpea7f38q71u3sq6p0"),
         first_name="Test2",
         last_name="User2",
         email="testuser2@example.com",

@@ -1,17 +1,29 @@
 from typing import Dict
 
 import rapidjson
+from xid import XID
 
 from app.config import settings
 
 
+def xid_encoder(obj):
+    if isinstance(obj, XID):
+        return str(obj)
+    else:
+        raise ValueError("%r is not JSON serializable" % obj)
+
+
 def dump(obj: object, stream: bytes, *args, **kwargs) -> bytes:
     kwargs = add_settings_to_kwargs(kwargs)
+    if "default" not in kwargs:
+        kwargs["default"] = xid_encoder
     return rapidjson.dump(obj, stream, *args, **kwargs)
 
 
 def dumps(obj: object, *args, **kwargs) -> bytes:
     kwargs = add_settings_to_kwargs(kwargs)
+    if "default" not in kwargs:
+        kwargs["default"] = xid_encoder
     return rapidjson.dumps(obj, *args, **kwargs)
 
 

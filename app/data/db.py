@@ -1,7 +1,8 @@
 from __future__ import annotations
 from datetime import datetime
 from typing import Any, Dict, List
-from uuid import UUID
+
+from xid import XID
 
 
 def setup(clear: bool = False) -> _InMemDB:
@@ -15,14 +16,14 @@ def setup(clear: bool = False) -> _InMemDB:
 _data = {
     "users": [
         {
-            "id": UUID("a6b2cb86-c689-40bb-9d5a-44b9bc096d89"),
+            "id": XID("bsqoofff38q67jp89430"),
             "created_at": datetime(2020, 5, 9, 16, 20, 40, 560920),
             "first_name": "Alain",
             "last_name": "Belanger",
             "email": "alain.belanger@example.com",
         },
         {
-            "id": UUID("8307e8d2-e225-4ee3-8606-f7f2d01fdaf1"),
+            "id": XID("bsqpakvf38q6siv586fg"),
             "created_at": datetime(2020, 5, 9, 16, 21, 1, 326478),
             "first_name": "Sylvie",
             "last_name": "Boucher",

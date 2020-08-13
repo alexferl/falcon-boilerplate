@@ -1,5 +1,5 @@
 from typing import List, Union
-from uuid import UUID
+from xid import XID
 
 from app.data.mapper import Mapper
 from ..models import UserModel
@@ -18,9 +18,7 @@ class UserMapper(Mapper):
 
         return self.get(user.id)
 
-    def get(self, user_id: Union[str, UUID]) -> Union[UserModel, None]:
-        user_id = self._hex_str_to_uuid(user_id)
-
+    def get(self, user_id: XID) -> Union[UserModel, None]:
         for user in self._db.users.find():
             if user["id"] == user_id:
                 return UserModel(**user)
@@ -51,24 +49,12 @@ class UserMapper(Mapper):
             if user["email"] == email:
                 return UserModel(**user)
 
-    def _get_index(self, user_id: Union[str, UUID]):
-        user_id = self._hex_str_to_uuid(user_id)
-
+    def _get_index(self, user_id: XID):
         for idx, user in enumerate(self._db.users.find()):
             if user["id"] == user_id:
                 return idx
 
-    def _find_by_email_or_id(
-        self, email: str, user_id: Union[str, UUID]
-    ) -> Union[UserModel, None]:
-        user_id = self._hex_str_to_uuid(user_id)
-
+    def _find_by_email_or_id(self, email: str, user_id: XID) -> Union[UserModel, None]:
         for user in self._db.users.find():
-            if user["email"] == email or user["id"] == user_id:
+            if user["email"] == email or user["id"] == str(user_id):
                 return UserModel(**user)
-
-    @staticmethod
-    def _hex_str_to_uuid(user_id: Union[str, UUID]) -> UUID:
-        if isinstance(user_id, str):
-            return UUID(user_id)
-        return user_id

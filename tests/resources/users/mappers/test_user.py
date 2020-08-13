@@ -1,7 +1,7 @@
 from datetime import datetime
-from uuid import UUID
 
 import pytest
+from xid import XID
 
 from app.data.db import setup, _Collection
 from app.resources.users.mappers import UserMapper
@@ -20,7 +20,7 @@ def mapper():
 
 def test_create(mapper):
     new_user = UserModel(
-        id=UUID("6b5a3e0e-ca4d-44f8-93cd-26f57ea3f705"),
+        id=XID("bsqpeinf38q71u3sq6pg"),
         first_name="New",
         last_name="User",
         email="newuser@example.com",
@@ -43,7 +43,7 @@ def test_create_exists(mapper):
 def test_get(mapper):
     user = user1()
     mapper._db.users._data = {"users": [user1().to_dict()]}
-    result = mapper.get("1f0d047364014d18864f492989276641")
+    result = mapper.get(XID("bsqpe67f38q71u3sq6og"))
 
     assert result.id == user.id
     assert result.first_name == user.first_name
@@ -52,10 +52,10 @@ def test_get(mapper):
     assert result.created_at == user.created_at
 
 
-def test_get_with_uuid(mapper):
+def test_get_with_xid(mapper):
     user = user1()
     mapper._db.users._data = {"users": [user1().to_dict()]}
-    result = mapper.get(UUID("1f0d0473-6401-4d18-864f-492989276641"))
+    result = mapper.get(XID("bsqpe67f38q71u3sq6og"))
 
     assert result.id == user.id
 
