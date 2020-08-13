@@ -1,4 +1,4 @@
-# falcon-boilerplate [![Build Status](https://travis-ci.com/admiralobvious/falcon-boilerplate.svg?branch=master)](https://travis-ci.com/admiralobvious/falcon-boilerplate) [![codecov](https://codecov.io/gh/admiralobvious/falcon-boilerplate/branch/master/graph/badge.svg)](https://codecov.io/gh/admiralobvious/falcon-boilerplate)
+# falcon-boilerplate [![Build Status](https://travis-ci.com/alexferl/falcon-boilerplate.svg?branch=master)](https://travis-ci.com/alexferl/falcon-boilerplate) [![codecov](https://codecov.io/gh/alexferl/falcon-boilerplate/branch/master/graph/badge.svg)](https://codecov.io/gh/alexferl/falcon-boilerplate)
 
 A boilerplate for the [Falcon](https://github.com/falconry/falcon) framework.
 
