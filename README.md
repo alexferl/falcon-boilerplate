@@ -7,14 +7,15 @@ A boilerplate for the [Falcon](https://github.com/falconry/falcon) framework.
 - [gunicorn](https://github.com/benoitc/gunicorn) as the WSGI HTTP server
 - [meinheld](https://github.com/mopemope/meinheld) as the gunicorn worker
 - [pydantic](https://github.com/samuelcolvin/pydantic) for data structures
-- [vyper](https://github.com/admiralobvious/vyper) for config management
+- [vyper](https://github.com/alexferl/vyper) for config management
+- [xid](https://github.com/alexferl/xid) for globally unique identifiers
 
 ## Using
 
 ```
 $ git clone https://github.com/admiralobvious/falcon-boilerplate.git myapp
 $ cd myapp
-$ make build
+$ make dev
 $ source venv/bin/activate
 $ python run.py
 ```
