@@ -1,4 +1,5 @@
 from typing import List, Union
+
 from xid import XID
 
 from app.data.mapper import Mapper

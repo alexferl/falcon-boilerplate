@@ -5,7 +5,7 @@ from .mapper import Mapper
 from .model import Model
 
 
-def retrieve_obj(id_: str, mapper_: Mapper) -> Model:
+def retrieve_model(id_: str, mapper_: Mapper) -> Model:
     name = mapper_.__class__.__name__.lower().split("mapper")[0].capitalize()
     obj = mapper_.get(id_)
 

@@ -8,9 +8,9 @@
         "id": {
             "$id": "#/properties/id",
             "type": "string",
-            "pattern": "[0-9a-f]+$",
-            "minLength": 32,
-            "maxLength": 32,
+            "pattern": "[0-9a-v]+$",
+            "minLength": 20,
+            "maxLength": 20,
             "description": "Unique identifier for this user.",
             "readOnly": true
         },

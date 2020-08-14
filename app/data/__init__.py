@@ -1,1 +1,1 @@
-from .util import retrieve_obj
+from .util import retrieve_model

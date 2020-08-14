@@ -1,4 +1,4 @@
-ARG PYTHON_VERSION=3.8.2
+ARG PYTHON_VERSION=3.8.5
 FROM python:${PYTHON_VERSION} as builder
 MAINTAINER Alexandre Ferland <aferlandqc@gmail.com>
 
