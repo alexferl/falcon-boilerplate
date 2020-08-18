@@ -15,13 +15,13 @@ def test_mapper_not_implemented():
     db = setup()
     mapper = NotImplementedMapper(db)
     with pytest.raises(NotImplementedError):
-        mapper.create(None)
+        mapper.insert(None)
     with pytest.raises(NotImplementedError):
-        mapper.get("")
+        mapper.find(None)
     with pytest.raises(NotImplementedError):
-        mapper.get_all()
+        mapper.update(None)
     with pytest.raises(NotImplementedError):
-        mapper.save(None)
+        mapper.delete(None)
 
 
 class MyMapper(Mapper):
@@ -29,16 +29,16 @@ class MyMapper(Mapper):
         super().__init__(db)
         self.model = None
 
-    def create(self, obj):
+    def insert(self, model):
         pass
 
-    def get(self, id):
+    def find(self, xid):
         return self.model
 
-    def get_all(self):
+    def update(self, model):
         pass
 
-    def save(self, obj):
+    def delete(self, xid):
         pass
 
 
@@ -48,24 +48,24 @@ def mapper():
     return MyMapper(db)
 
 
-def test_resolve_obj_raises_bad_request(mapper):
+def test_resolve_obj_raises_not_found(mapper):
     with pytest.raises(HTTPError) as excinfo:
-        retrieve_model("", mapper)
+        retrieve_model(None, mapper)
 
-    assert excinfo.value.status == falcon.HTTP_BAD_REQUEST
+    assert excinfo.value.status == falcon.HTTP_NOT_FOUND
 
 
 def test_resolve_object_raises_gone(mapper, model):
     with pytest.raises(HTTPError) as excinfo:
         model.deleted_at = "123"
         mapper.model = model
-        retrieve_model("", mapper)
+        retrieve_model(None, mapper)
 
     assert excinfo.value.status == falcon.HTTP_GONE
 
 
 def test_resolve_obj_returns_obj(mapper, model):
     mapper.model = model
-    result = retrieve_model("", mapper)
+    result = retrieve_model(None, mapper)
 
     assert result == model

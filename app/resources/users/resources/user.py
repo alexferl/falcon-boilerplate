@@ -22,7 +22,7 @@ class User(Resource):
         user = retrieve_model(user_id, mapper)
 
         user = user.update(req.media)
-        mapper.save(user)
+        mapper.update(user)
 
         resp.media = user.to_dict()
 
@@ -31,7 +31,7 @@ class User(Resource):
         user = retrieve_model(user_id, mapper)
 
         user.delete()
-        mapper.save(user)
+        mapper.delete(user)
 
         resp.status = falcon.HTTP_NO_CONTENT
 

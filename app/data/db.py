@@ -50,8 +50,8 @@ class _Collection:
     def insert(self, data: Dict[str, Any]):
         self._data[self.name].append(data)
 
-    def update(self, id_: int, data: Dict[str, Any]):
-        self._data[self.name][id_] = data
-
     def find(self) -> List[Dict]:
         return self._data[self.name]
+
+    def update(self, id_: int, data: Dict[str, Any]):
+        self._data[self.name][id_] = data

@@ -21,7 +21,7 @@ class Users(Resource):
         user = UserModel(**req.media)
 
         try:
-            user = mapper.create(user)
+            user = mapper.insert(user)
         except ValueError:
             raise HTTPError(falcon.HTTP_CONFLICT, "Email address already in-use")
 
@@ -30,6 +30,6 @@ class Users(Resource):
 
     def on_get(self, req, resp):
         mapper = UserMapper(self._db)
-        users = [user.to_dict() for user in mapper.get_all()]
+        users = [user.to_dict() for user in mapper.find()]
 
         resp.media = {"users": users}

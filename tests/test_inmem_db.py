@@ -22,15 +22,6 @@ def test_insert():
     assert db.test._data["test"] == [data]
 
 
-def test_update():
-    db = setup(True)
-    data = {"test2": "data"}
-    db.test.insert(data)
-    db.test.update(0, {"test2": "data2"})
-
-    assert db.test._data["test"] == [{"test2": "data2"}]
-
-
 def test_find():
     db = setup(True)
     data1 = {"test": "data1"}
@@ -39,3 +30,12 @@ def test_find():
     db.test.insert(data2)
 
     assert db.test.find() == [data1, data2]
+
+
+def test_update():
+    db = setup(True)
+    data = {"test2": "data"}
+    db.test.insert(data)
+    db.test.update(0, {"test2": "data2"})
+
+    assert db.test._data["test"] == [{"test2": "data2"}]

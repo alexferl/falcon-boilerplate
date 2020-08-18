@@ -10,7 +10,7 @@ from . import skip_missing_dep
 @skip_missing_dep
 @pytest.mark.parametrize("user", (user1(),))
 def test_get_user(client, user):
-    with patch.object(UserMapper, "get", return_value=user):
+    with patch.object(UserMapper, "find", return_value=user):
         result = client.simulate_get("/users/{}".format(user.id))
 
         assert result.status == falcon.HTTP_OK
@@ -23,7 +23,7 @@ def test_get_user(client, user):
 @skip_missing_dep
 @pytest.mark.parametrize("user", (user1(),))
 def test_delete_user(client, user):
-    with patch.object(UserMapper, "get", return_value=user):
+    with patch.object(UserMapper, "find", return_value=user):
         result = client.simulate_delete("/users/{}".format(user.id))
 
         assert result.status == falcon.HTTP_NO_CONTENT
@@ -38,7 +38,7 @@ def test_delete_user(client, user):
 @pytest.mark.parametrize("user", (user1(),))
 def test_edit_user(client, user):
     doc = {"last_name": "changed"}
-    with patch.object(UserMapper, "get", return_value=user):
+    with patch.object(UserMapper, "find", return_value=user):
         result = client.simulate_put("/users/".format(user.id), json=doc)
 
         assert result.status == falcon.HTTP_OK

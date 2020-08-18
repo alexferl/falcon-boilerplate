@@ -1,5 +1,7 @@
 import io
 
+import pytest
+
 from app.media import json
 
 
@@ -23,6 +25,12 @@ def test_json_dump():
     json.dump(doc, stream, chunk_size=100)
 
     assert stream.data == b'{"k":"v"}'
+
+
+def test_json_dumps_exception():
+    doc = {"k": frozenset}
+    with pytest.raises(ValueError):
+        json.dumps(doc)
 
 
 def test_json_loads():

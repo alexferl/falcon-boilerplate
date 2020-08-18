@@ -37,7 +37,7 @@ def test_create_user_already_exists(client, user):
 
 
 def test_get_users(client):
-    with patch.object(UserMapper, "get_all", return_value=[user1(), user2()]):
+    with patch.object(UserMapper, "find", return_value=[user1(), user2()]):
         result = client.simulate_get("/users")
 
         assert result.status == falcon.HTTP_OK
