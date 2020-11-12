@@ -1,7 +1,7 @@
 from typing import Dict
 
 import rapidjson
-from xid import XID
+from xid import XID, InvalidXID
 
 from app.config import settings
 
@@ -11,6 +11,19 @@ def xid_encoder(obj):
         return str(obj)
     else:
         raise ValueError("%r is not JSON serializable" % obj)
+
+
+def xid_decoder(obj):
+    if "_id" in obj:
+        try:
+            if len(obj["_id"]) == 20:
+                try:
+                    obj["_id"] = XID(obj["_id"])
+                except InvalidXID:
+                    pass
+        except KeyError:
+            pass
+    return obj
 
 
 def dump(obj: object, stream: bytes, *args, **kwargs) -> bytes:
@@ -29,11 +42,15 @@ def dumps(obj: object, *args, **kwargs) -> bytes:
 
 def load(stream: bytes, *args, **kwargs) -> Dict:
     kwargs = add_settings_to_kwargs(kwargs)
+    if "object_hook" not in kwargs:
+        kwargs["object_hook"] = xid_decoder
     return rapidjson.load(stream, *args, **kwargs)
 
 
 def loads(string: str, *args, **kwargs) -> Dict:
     kwargs = add_settings_to_kwargs(kwargs)
+    if "object_hook" not in kwargs:
+        kwargs["object_hook"] = xid_decoder
     return rapidjson.loads(string, *args, **kwargs)
 
 

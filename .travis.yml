@@ -4,6 +4,7 @@ dist: bionic
 python:
   - "3.7"
   - "3.8"
+  - "3.9"
 cache: pip
 before_install:
   - python --version

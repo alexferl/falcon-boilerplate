@@ -39,4 +39,3 @@ test: venv
 
 lint: venv
 	$(VENV_NAME)/bin/black -t py37 --exclude $(VENV_NAME) .
-

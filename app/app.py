@@ -51,7 +51,8 @@ def create_app() -> falcon.API:
     dump_kwargs.update(kwargs)
 
     json_handler = falcon.media.JSONHandler(
-        dumps=partial(json.dumps, **dump_kwargs), loads=partial(json.loads, **kwargs),
+        dumps=partial(json.dumps, **dump_kwargs),
+        loads=partial(json.loads, **kwargs),
     )
     extra_handlers = {
         falcon.MEDIA_JSON: json_handler,
