@@ -13,7 +13,7 @@ A boilerplate for the [Falcon](https://github.com/falconry/falcon) framework.
 ## Using
 
 ```
-$ git clone https://github.com/admiralobvious/falcon-boilerplate.git myapp
+$ git clone https://github.com/alexferl/falcon-boilerplate.git myapp
 $ cd myapp
 $ make dev
 $ source venv/bin/activate
