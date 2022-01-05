@@ -1,5 +1,5 @@
 import abc
-from typing import List, Union
+from typing import List
 
 from xid import XID
 
@@ -13,7 +13,7 @@ class Mapper(metaclass=abc.ABCMeta):
     def insert(self, model: Model) -> Model:
         raise NotImplementedError()
 
-    def find(self, xid: Union[XID, None]) -> Union[Model, List[Model], None]:
+    def find(self, xid: XID | None) -> Model | List[Model] | None:
         raise NotImplementedError()
 
     def update(self, model: Model):

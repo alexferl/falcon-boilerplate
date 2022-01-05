@@ -6,7 +6,7 @@ from .user import User, UserSchema
 from .users import Users
 
 
-def get_routes(app: falcon.API):
+def get_routes(app: falcon.App):
     db = setup()
 
     app.add_route("/users", Users(db))

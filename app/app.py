@@ -26,7 +26,7 @@ def configure(**overrides: Any):
     setup_logging()
 
 
-def create_app() -> falcon.API:
+def create_app() -> falcon.App:
     mw = []
     if settings.get_bool("CORS_ENABLED"):
         if crossorigin_available is False:
