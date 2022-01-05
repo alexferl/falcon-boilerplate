@@ -1,14 +1,13 @@
-ARG PYTHON_VERSION=3.8.5
+ARG PYTHON_VERSION=3.10.1
 FROM python:${PYTHON_VERSION} as builder
-MAINTAINER Alexandre Ferland <aferlandqc@gmail.com>
 
 WORKDIR /build
 COPY requirements.txt /build/
 RUN pip wheel -r requirements.txt
 
 FROM python:${PYTHON_VERSION}
-RUN groupadd -g 999 appuser && \
-    useradd -r -d /app -u 999 -g appuser appuser
+RUN groupadd -g 1337 appuser && \
+    useradd -r -d /app -u 1337 -g appuser appuser
 COPY --from=builder /build /build
 RUN pip install -r /build/requirements.txt \
                 -f /build \

@@ -101,7 +101,7 @@ gu.add_argument(
 gu.add_argument(
     "--worker-class",
     type=str,
-    default="egg:meinheld#gunicorn_worker",
+    default="gevent",
     help="The type of workers to use. (default %(default)s)",
 )
 gu.add_argument(

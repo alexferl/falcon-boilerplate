@@ -1,10 +1,8 @@
 language: python
 sudo: required
-dist: bionic
+dist: focal
 python:
-  - "3.7"
-  - "3.8"
-  - "3.9"
+  - "3.10"
 cache: pip
 before_install:
   - python --version

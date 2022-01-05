@@ -1,4 +1,4 @@
-.PHONY: help dev clean update test lint
+.PHONY: help dev clean update run test lint
 
 VENV_NAME?=venv
 VENV_ACTIVATE=. $(VENV_NAME)/bin/activate
@@ -12,6 +12,8 @@ help:
 	@echo "       delete development environment"
 	@echo "make update"
 	@echo "       update dependencies"
+	@echo "make run"
+	@echo "       run app"
 	@echo "make test"
 	@echo "       run tests"
 	@echo "make lint"
@@ -34,8 +36,11 @@ clean:
 update:
 	${PYTHON} -m pip install -U -r dev_requirements.txt
 
+run:
+	${PYTHON} run.py
+
 test: venv
 	${PYTHON} -m pytest
 
 lint: venv
-	$(VENV_NAME)/bin/black -t py37 --exclude $(VENV_NAME) .
+	$(VENV_NAME)/bin/black -t py310 --exclude $(VENV_NAME) .

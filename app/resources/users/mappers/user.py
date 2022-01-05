@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List
 
 from xid import XID
 
@@ -19,9 +19,7 @@ class UserMapper(Mapper):
 
         return self.find(user.id)
 
-    def find(
-        self, user_id: Union[XID, None] = None
-    ) -> Union[UserModel, List[UserModel], None]:
+    def find(self, user_id: XID | None = None) -> UserModel | List[UserModel] | None:
         if user_id:
             for user in self._db.users.find():
                 if user["id"] == user_id:
@@ -40,7 +38,7 @@ class UserMapper(Mapper):
 
         return users
 
-    def find_by_email(self, email: str) -> Union[UserModel, None]:
+    def find_by_email(self, email: str) -> UserModel | None:
         for user in self._db.users.find():
             if user["email"] == email:
                 return UserModel(**user)
@@ -62,7 +60,7 @@ class UserMapper(Mapper):
             if user["id"] == user_id:
                 return idx
 
-    def _find_by_email_or_id(self, email: str, user_id: XID) -> Union[UserModel, None]:
+    def _find_by_email_or_id(self, email: str, user_id: XID) -> UserModel | None:
         for user in self._db.users.find():
             if user["email"] == email or user["id"] == str(user_id):
                 return UserModel(**user)

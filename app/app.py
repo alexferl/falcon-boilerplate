@@ -44,7 +44,7 @@ def create_app() -> falcon.API:
         )
         mw.append(cors)
 
-    app = falcon.API(middleware=mw)
+    app = falcon.App(middleware=mw)
 
     dump_kwargs = {"ensure_ascii": False, "sort_keys": True}
     kwargs = json.add_settings_to_kwargs({})
