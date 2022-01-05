@@ -39,7 +39,7 @@ def test_delete_user(client, user):
 def test_edit_user(client, user):
     doc = {"last_name": "changed"}
     with patch.object(UserMapper, "find", return_value=user):
-        result = client.simulate_put("/users/".format(user.id), json=doc)
+        result = client.simulate_put("/users/{}".format(user.id), json=doc)
 
         assert result.status == falcon.HTTP_OK
         assert result.json["last_name"] == doc["last_name"]
