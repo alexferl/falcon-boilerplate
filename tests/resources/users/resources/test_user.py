@@ -19,6 +19,11 @@ def test_get_user(client, user):
         assert result.json["last_name"] == user.last_name
         assert result.json["email"] == user.email
 
+    with patch.object(UserMapper, "find", return_value=None):
+        result = client.simulate_get("/users/{}".format("does_not_exist"))
+
+        assert result.status == falcon.HTTP_NOT_FOUND
+
 
 @skip_missing_dep
 @pytest.mark.parametrize("user", (user1(),))
@@ -44,6 +49,13 @@ def test_edit_user(client, user):
         assert result.status == falcon.HTTP_OK
         assert result.json["last_name"] == doc["last_name"]
         assert result.json["updated_at"] is not None
+
+    # invalid schema
+    doc = {"invalid_field": "changed"}
+    with patch.object(UserMapper, "find", return_value=user):
+        result = client.simulate_put("/users/{}".format(user.id), json=doc)
+
+        assert result.status == falcon.HTTP_BAD_REQUEST
 
 
 def test_get_schema(client):

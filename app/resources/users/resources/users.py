@@ -10,7 +10,7 @@ from ..models import UserModel
 def schema():
     user = load_schema("../schemas/user.json")
     create = load_schema("../schemas/create.json")
-    user = user.update(create)
+    user.update(create)
     return user
 
 

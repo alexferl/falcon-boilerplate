@@ -14,14 +14,14 @@ def schema():
 
 class User(Resource):
     def on_get(self, req, resp, user_id):
-        user = retrieve_model(XID(user_id), UserMapper(self._db))
+        user = retrieve_model(user_id, UserMapper(self._db))
 
         resp.media = user.to_dict()
 
     @validate(schema())
     def on_put(self, req, resp, user_id):
         mapper = UserMapper(self._db)
-        user = retrieve_model(XID(user_id), mapper)
+        user = retrieve_model(user_id, mapper)
 
         user = user.update(req.media)
         mapper.update(user)
@@ -30,7 +30,7 @@ class User(Resource):
 
     def on_delete(self, req, resp, user_id):
         mapper = UserMapper(self._db)
-        user = retrieve_model(XID(user_id), mapper)
+        user = retrieve_model(user_id, mapper)
 
         user.delete()
         mapper.delete(user)

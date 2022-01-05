@@ -29,7 +29,7 @@ class Application(gunicorn.app.base.BaseApplication):
         return self.application
 
 
-def init_app() -> falcon.API:
+def init_app() -> falcon.App:
     configure()
     return create_app()
 

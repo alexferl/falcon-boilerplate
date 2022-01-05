@@ -24,6 +24,8 @@ class UserMapper(Mapper):
             for user in self._db.users.find():
                 if user["id"] == user_id:
                     return UserModel(**user)
+            else:
+                return None
 
         if len(self._db.users.find()) < 1:
             return []

@@ -22,6 +22,12 @@ def test_create_user(client):
     assert result.json["last_name"] == doc["last_name"]
     assert result.json["email"] == doc["email"]
 
+    # missing required fields
+    doc = {"first_name": "Test"}
+    result = client.simulate_post("/users", json=doc)
+
+    assert result.status == falcon.HTTP_BAD_REQUEST
+
 
 @skip_missing_dep
 @pytest.mark.parametrize("user", (user1(),))
