@@ -35,6 +35,7 @@ clean:
 
 update:
 	${PYTHON} -m pip install -U -r dev_requirements.txt
+	$(VENV_NAME)/bin/pre-commit install
 
 run:
 	${PYTHON} run.py
