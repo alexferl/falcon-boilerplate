@@ -2,7 +2,8 @@ language: python
 sudo: required
 dist: focal
 python:
-  - "3.10"
+  - "3.10.0"
+  - "3.10.1"
 cache: pip
 before_install:
   - python --version
