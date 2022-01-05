@@ -5,8 +5,6 @@ from app.media.validators.jsonschema import load_schema, validate
 from app.resources import Resource
 from ..mappers import UserMapper
 
-from xid import XID
-
 
 def schema():
     return load_schema("../schemas/user.json")
