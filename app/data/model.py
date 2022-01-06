@@ -10,13 +10,13 @@ BaseModel = BaseModel
 
 
 class Model(BaseModel):
+    class Config:
+        arbitrary_types_allowed = True
+
     id: XID = Field(default_factory=XID)
     created_at: datetime = Field(default_factory=datetime.now)
     deleted_at: datetime = None
     updated_at: datetime = None
-
-    class Config:
-        arbitrary_types_allowed = True
 
     def delete(self):
         self.deleted_at = datetime.now()

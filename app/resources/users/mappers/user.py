@@ -64,5 +64,5 @@ class UserMapper(Mapper):
 
     def _find_by_email_or_id(self, email: str, user_id: XID) -> UserModel | None:
         for user in self._db.users.find():
-            if user["email"] == email or user["id"] == str(user_id):
+            if user["email"] == email or user["id"] == user_id:
                 return UserModel(**user)
