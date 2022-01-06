@@ -11,8 +11,7 @@ def retrieve_model(xid: str, mapper_: Mapper) -> Model:
     name = mapper_.__class__.__name__.lower().split("mapper")[0].capitalize()
     model = None
     try:
-        XID(xid)
-        model = mapper_.find(xid)
+        model = mapper_.find(XID(xid))
     except InvalidXID:
         pass
 
