@@ -1,7 +1,7 @@
 falcon==3.0.1
 gevent==23.9.1
 gunicorn==22.0.0
-pydantic==1.9.0
+pydantic==1.10.13
 py-xid==0.3.0
 python-rapidjson==1.5
 setproctitle==1.2.2
